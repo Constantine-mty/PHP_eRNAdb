@@ -1,4 +1,10 @@
 <?php
+/*
+ * 2024.3.17 Ma-tianyu
+ * 封装SQL查询
+ * Db类实现了SELECT、DELETE、INSERT、UPDATE
+ * 返回的$result为数组对象
+ */
 class Db{
     public static $tablename;
     public static $where = '';
@@ -21,7 +27,8 @@ class Db{
     public static function connect()
     {
         $DS = DIRECTORY_SEPARATOR;
-        $config = require __DIR__."/../config/database.php";
+        $config = require __DIR__."{$DS}..{$DS}config{$DS}database.php";
+        //$config = require __DIR__."/../config/database.php";
         // $config = require __DIR__.$DS."..".$DS."config".$DS."database.php";
         $dbms = $config["dbms"];
         $host = $config["host"];
@@ -378,3 +385,25 @@ class Db{
         self::$field='*';
     }
 }
+
+
+//测试
+/*
+$result = Db::table('publish')->where([
+    ["species","=","Human"],
+    ["tissue","=","Brain"],
+])->select();
+*/
+
+// $result = Db::table('publish')->order('id ASC')->limit(3,4)->select();
+// $result = Db::table('publish')->field('id, tissue, species')->order('id ASC')->limit(3,4)->select();
+
+
+/*
+$queryObject = Db::table('publish')->field('tissue, species')->order('id DESC');
+$result = $queryObject->count();
+$sql = $queryObject->getLastSql();
+echo $sql;
+*/
+
+//var_dump($result);

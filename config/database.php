@@ -1,9 +1,9 @@
 <?php
-    return [
-        "dbms" => 'mysql',    //数据库类型
-        "servername" => 'localhost',    //主机名
-        "dbName" => 'eRNA',   //数据库名称
-        "username" => 'root',     //用户名
-        "password" => 'anysysdy2697!',     //密码
-        ];
-
+// MYSQL config配置
+return [
+    "dbms"=>'mysql',     //数据库类型
+    "host"=>'localhost', //数据库主机名
+    "dbName"=>'eRNA',    //使用的数据库
+    "user"=>'root',      //数据库连接用户名
+    "pass"=>'anysysdy2697!',          //对应的密码
+];
