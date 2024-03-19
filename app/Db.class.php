@@ -1,6 +1,6 @@
 <?php
 /*
- * 2024.3.17 Ma-tianyu
+ * 2024.3.18 Ma-tianyu
  * 封装SQL查询
  * Db类实现了SELECT、DELETE、INSERT、UPDATE
  * 返回的$result为数组对象

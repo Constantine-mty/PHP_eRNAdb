@@ -5,9 +5,34 @@
     require dirname(__DIR__)."{$DS}app{$DS}Db.class.php";
     require dirname(__DIR__)."{$DS}app{$DS}Func.php";
 
+    //多条件测试1：
+    $result1 = Db::table('enhancer')->where([
+        ["chrID","=",$_GET["chr"]],
+        ["start",">=",$_GET["start"]],
+        ["end","<=",$_GET["end"]],
+        ["tissue","=",$_GET["tissue"]],
+    ])->field('enhancerID, score, H1')->
+    order('enhancerID ASC')->
+    limit(0,10)->select();
 
 
-    //提取表单变量，附值给新变量
+    //多条件测试2:
+    $result2 = Db::table('publish')->
+    where([
+        ["technology","=",$_GET["experiment"]],
+    ])->
+    field('project_id, tissue, species')->
+    order('id DESC')->
+    limit(4,10)->select();
+
+    print_r(json($result1));
+    echo "<br/>";
+    echo "<br/>";
+    echo "<br/>";
+    print_r(json($result2));
+
+
+    //解析表单传递的$_POST/$_GET变量，另附值给新变量
     /*
     $chr = $_GET["chr"];
     $start = $_GET["start"];
@@ -25,18 +50,6 @@
     //  ["start","=","712228"],
     //  ["end","=","rs559206294"],
     //  ])->select();
-
-
-    $result = Db::table('snp')->where([
-        ["chr","=",$_GET["chr"]],
-        ["start","=",$_GET["start"]],
-        ["end","=",$_GET["end"]],
-    ])->select();
-
-
-
-print_r(json($result));
-
 
 
     //var_dump($_GET);

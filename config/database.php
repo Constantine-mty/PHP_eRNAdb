@@ -7,3 +7,4 @@ return [
     "user"=>'root',      //数据库连接用户名
     "pass"=>'anysysdy2697!',          //对应的密码
 ];
+
