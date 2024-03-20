@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="keywords" content="">
         <meta name="description" content="">
-        <link href="/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./bootstrap5/css/bootstrap.min.css" rel="stylesheet">
 
         <title>Hello, world!</title>
         <!--
@@ -50,6 +50,16 @@
                         <option value="Brain">Brain</option>
                         <option value="Embryo">Embryo</option>
                         <option value="PBMC">PBMC</option>
+                        <option value="K562">K562</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <lable for="Experiment">Experiment:</lable>
+                    <select class="form-control" name="experiment">
+                        <!--<select multiple class="form-control">-->
+                        <option value="">点击下拉选择：</option>
+                        <option value="Smart-seq2">Smart-seq2</option>
+
                     </select>
                 </div>
             <br>

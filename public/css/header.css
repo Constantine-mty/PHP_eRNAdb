@@ -8,6 +8,10 @@ nav{
     font-weight: bolder;
 }
 
+.navbar-brand:hover{
+    color:#ffffff;
+}
+
 .nav-link{
     color: #ffffff;
     font-weight: bold;
