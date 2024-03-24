@@ -11,6 +11,14 @@
     <link href="../public/css/footer.css" rel="stylesheet">
     <link href="../public/css/header.css" rel="stylesheet">
     <link href="../public/css/card.css" rel="stylesheet">
+    <link href="../public/css/search.css" rel="stylesheet">
+
+    <!-- JAVASCRIPT -->
+    <!-- jquery and popper -->
+    <script src="../bootstrap5/js/jquery-3.6.1.js"></script>
+    <script src="../bootstrap5/js/bootstrap.bundle.min.js" ></script>
+    <!-- datatables -->
+    <script src="../bootstrap5/js/jquery.dataTables.min.js"></script>
 
     <title>eRNA scAtlas</title>
     <!--

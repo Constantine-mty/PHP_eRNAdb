@@ -30,7 +30,7 @@
                 </li>
 
                 <li class="nav-item" style="margin-right: 15px">
-                    <a class="nav-link" href="#" aria-expanded="false">SEARCH</a>
+                    <a class="nav-link" href="./search_iframe.php" aria-expanded="false">SEARCH</a>
                 </li>
 
                 <!-- navbar Tools 下拉单 -->
