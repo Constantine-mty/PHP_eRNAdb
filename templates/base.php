@@ -7,6 +7,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bootstrap5/css/jquery.dataTables.min.css" rel="stylesheet">
     <!--导入自定义css-->
     <link href="../public/css/footer.css" rel="stylesheet">
     <link href="../public/css/header.css" rel="stylesheet">

@@ -1,5 +1,4 @@
 
-
 <?php
 include "./templates/base.php";
 ?>
@@ -13,7 +12,7 @@ include "./templates/base.php";
 include "./templates/header.php";
 ?>
 
-<!-- 1 -->
+<!-- 1 id=test(Tissue/Cell line) -->
 <script type="text/javascript">
     function reinitIframe(){
         var iframe = document.getElementById("test");
@@ -27,6 +26,8 @@ include "./templates/header.php";
     }
     window.setInterval("reinitIframe()", 500);
 </script>
+
+<!-- 2 id=tes -->
 <script type="text/javascript">
     function reinitIfram(){
         var iframe = document.getElementById("tes");
@@ -41,23 +42,7 @@ include "./templates/header.php";
     window.setInterval("reinitIfram()", 500);
 </script>
 
-<!-- 2 -->
-<script type="text/javascript">
-    function reinitIfram(){
-        var iframe = document.getElementById("tes");
-        try{
-            var bHeight = iframe.contentWindow.document.body.scrollHeight;
-            var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-            var height = Math.max(bHeight, dHeight);
-            iframe.height = height;
-// console.log(height);
-        }catch (ex){}
-    }
-    window.setInterval("reinitIfram()", 500);
-</script>
-
-
-<!-- 3 -->
+<!-- 3 id=te -->
 <script type="text/javascript">
     function reinitIfra(){
         var iframe = document.getElementById("te");
@@ -72,9 +57,7 @@ include "./templates/header.php";
     window.setInterval("reinitIfra()", 200);
 </script>
 
-
-
-<!-- 4 -->
+<!-- 4 点击触发下拉栏 -->
 <script>
     $(document).ready(function(){
         $('.card-header').click(function(){
@@ -91,11 +74,38 @@ include "./templates/header.php";
     <div id="accordion">
 
 
-        <!-- 第四类search开始 -->
+        <!-- Tissue/Cell line search开始 | cell:test;tissue:tes-->
+        <div class="card mt-1">
+            <div class="card-header bg-gradient-freestyle" style="line-height:0.1;" >
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseCellTissue">
+                    Search by <span style="color: #63938c;">Cell line/Tissue Source</span>
+                </a>
+            </div>
+            <div id="collapseCellTissue" class="collapse show" data-parent="#accordion" style="margin-top: 0px;">
+                <div class="row">
+                    <div class="col-lg-6 ">
+                        <div class="card-body">
+                            <h1 style="font-size: 14px;">Search by cell line</h1>
+                            <iframe src="./templates/iframe/iframe_c.php" frameborder="no" height="300px" width='100%' id="test"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 ">
+                        <div class="card-body">
+                            <h1 style="font-size: 14px;">Search by tissue</h1>
+                            <iframe src="./templates/iframe/iframe_t.php" frameborder="no" height="300px" width='100%' id="tes"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Tissue/Cell line search结束 -->
+
+
+        <!-- Genomic Region search开始 id:te-->
         <div class="card mt-0">
             <div class="card-header bg-gradient-freestyle" style="line-height:0.1;">
-                <a class="card-link text-white font-weight-bold h5" data-toggle="collapse" href="#collapseGenomicRegion">
-                    <i class="ni ni-zoom-split-in text-white-50"></i><span class="glyphicon glyphicon-arrow-down"></span> Search by <span style="color: #63938c;"> Genomic Region</span>
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseGenomicRegion">
+                    Search by <span style="color: #63938c;"> Genomic Region</span>
                 </a>
             </div>
             <div id="collapseGenomicRegion" class="collapse" data-parent="#accordion">
@@ -104,13 +114,34 @@ include "./templates/header.php";
                 </div>
             </div>
         </div>
-        <!-- 第四类search结束 -->
+        <!-- Genomic Region search结束 -->
 
-        <!-- 第五类search开始 -->
+
+        <!-- Study search开始 no id -->
         <div class="card mt-0">
             <div class="card-header bg-gradient-freestyle" style="line-height:0.1;">
-                <a class="card-link text-white font-weight-bold h5" data-toggle="collapse" href="#collapseEccDnaID">
-                    <i class="ni ni-zoom-split-in text-white-50"></i> <span class="glyphicon glyphicon-arrow-down"></span>Search by <span style="color: #63938c;">eccDNA ID</span>
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseStudy">
+                    Search by <span style="color: #63938c;">Study</span>
+                </a>
+            </div>
+            <div id="collapseStudy" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <iframe src="./templates/iframe/iframe_studyid.php" frameborder="no" height="290px" width='100%'></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Study search结束-->
+
+
+        <!-- eRNA id search开始 id:te-->
+        <div class="card mt-0">
+            <div class="card-header bg-gradient-freestyle" style="line-height:0.1;">
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseEccDnaID">
+                    <i class="ni ni-zoom-split-in text-white-50"></i> <span class="glyphicon glyphicon-arrow-down"></span>Search by <span style="color: #63938c;">eRNA ID</span>
                 </a>
             </div>
             <div id="collapseEccDnaID" class="collapse" data-parent="#accordion">
@@ -119,11 +150,10 @@ include "./templates/header.php";
                 </div>
             </div>
         </div>
-        <!-- 第五类search结束 -->
+        <!-- eRNA id search结束 -->
+
     </div>
 </div>
-
-
 
 
 

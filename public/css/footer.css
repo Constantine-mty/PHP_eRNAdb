@@ -7,5 +7,8 @@ footer {
     background-color: #63938c;
     /*background-color: #6e5f62;*/
     text-align: center;
+
+    //设置始终在页面最下端固定
+
 }
 

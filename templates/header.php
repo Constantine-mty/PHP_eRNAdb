@@ -24,11 +24,12 @@
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">BROWSE</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./browser.php" id="label_download">Browse by Experiments</a></li>
-                        <li><a class="dropdown-item" href="#" id="label_download">Browse by Sample</a></li>
+                        <li><a class="dropdown-item" href="./browser_Experiments.php" id="label_download">Browse by Experiments</a></li>
+                        <li><a class="dropdown-item" href="./browser_eRNA.php" id="label_download">Browse by eRNA</a></li>
                     </ul>
                 </li>
 
+                <!-- navbar Search -->
                 <li class="nav-item" style="margin-right: 15px">
                     <a class="nav-link" href="./search_iframe.php" aria-expanded="false">SEARCH</a>
                 </li>
@@ -43,17 +44,21 @@
                     </ul>
                 </li>
 
-                <li class="nav-item" style="margin-right: 8px">
-                    <a class="nav-link" href="#" aria-expanded="false">DOWNLOAD</a>
+                <!-- navbar Download -->
+                <li class="nav-item" style="margin-right: 12px">
+                    <a class="nav-link" href="./download.php" aria-expanded="false">DOWNLOAD</a>
                 </li>
 
-                <li class="nav-item" style="margin-left: 3px">
+                <!-- navbar Contact -->
+                <li class="nav-item" style="margin-right: 12px">
+                    <a class="nav-link" href="./contact.php"  aria-expanded="false">CONTACT</a>
+                </li>
+
+                <!-- navbar Manual -->
+                <li class="nav-item" style="margin-left: 0px">
                     <a class="nav-link" href="./manual.php"  aria-expanded="false">MANUAL</a>
                 </li>
 
-                <!-- navbar Resources 下拉单 -->
-
-                <!-- navbar Help 下拉单 -->
 
             </ul>
             <!--舍弃搜索框组件
@@ -62,5 +67,6 @@
             </form>
             -->
         </div>
+
     </div>
 </nav>

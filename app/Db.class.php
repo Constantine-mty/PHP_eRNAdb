@@ -406,4 +406,34 @@ $sql = $queryObject->getLastSql();
 echo $sql;
 */
 
+
+/*
+ * where([
+ *  ["",like,"%xxx%"],
+ *  ["",between,["2024-3-26 13:00:00","2024-4-01 13:00:00"]],
+ *  ['id','in',[1,2]]
+ * ])->
+ *  whereNull('creattime')->
+ *  whereNotNull('id')->
+ *  select();
+ */
+
+
+/*
+ * whereOrNot([
+ *  ['id','in',[1,2]],
+ *  ['id','',''],
+ * ])
+ * ->whereOr([
+ *  ["",between,["2024-3-26 13:00:00","2024-4-01 13:00:00"]]
+ * ])
+ * ->select();
+ *
+ */
+
+
+
+
+
+
 //var_dump($result);

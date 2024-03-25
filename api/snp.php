@@ -25,11 +25,28 @@
     order('id DESC')->
     limit(4,10)->select();
 
+$totalRecords = Db::table('enhancer')->count();
+
+
+//多条件测试3:
+$result3 = Db::table('publish')->
+field('project_id, tissue, species')->
+order('id DESC')->
+limit(4,10)->select();
+
     print_r(json($result1));
     echo "<br/>";
     echo "<br/>";
     echo "<br/>";
     print_r(json($result2));
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+print_r(json($totalRecords));
+echo "<br/>";
+echo "<br/>";
+echo "<br/>";
+print_r(json($result3));
 
 
     //解析表单传递的$_POST/$_GET变量，另附值给新变量
