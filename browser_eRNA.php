@@ -31,8 +31,8 @@ include "./templates/header.php";
         "serverSide": true,
         "serverMethod": 'post',
         ajax: {
-            //url: './api/serverSide.php',
-            url: './api/test.php',
+            url: './api/serverSide.php',
+            //url: './api/test.php',
             //type: 'POST',
             //dataSrc: 'data'
         },
