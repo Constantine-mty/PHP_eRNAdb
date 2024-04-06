@@ -81,6 +81,7 @@ include "./templates/header.php";
                     Search by <span style="color: #63938c;">Cell line/Tissue Source</span>
                 </a>
             </div>
+            <!--class = collapse show是设置默认为展开-->
             <div id="collapseCellTissue" class="collapse show" data-parent="#accordion" style="margin-top: 0px;">
                 <div class="row">
                     <div class="col-lg-6 ">

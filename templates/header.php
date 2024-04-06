@@ -38,7 +38,7 @@
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ANALYSIS</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Visualization</a></li>
+                        <li><a class="dropdown-item" href="./detail_study.php">Visualization</a></li>
                         <li><a class="dropdown-item" href="#">Analysis Tools</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
@@ -46,7 +46,7 @@
 
                 <!-- navbar Download -->
                 <li class="nav-item" style="margin-right: 12px">
-                    <a class="nav-link" href="./download.php" aria-expanded="false">DOWNLOAD</a>
+                    <a class="nav-link" href="./browse.php" aria-expanded="false">DOWNLOAD</a>
                 </li>
 
                 <!-- navbar Contact -->

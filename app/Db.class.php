@@ -387,6 +387,31 @@ class Db{
 }
 
 
+
+/*
+$result = Db::table('publish')
+    ->where([
+        ["species","=",'Human'],
+    ])
+    //调用闭包函数query并且允许使用外部变量searchQuery
+    ->where(function ($query){
+        $query->where([
+            ["species","like","%Hu"]
+        ])->
+        whereOr([
+            ["project_id","like",""]
+        ])->
+        whereOr([
+            ["technology","like",""]
+        ]);
+    })
+    ->select();
+
+
+var_dump($result);
+*/
+
+
 //测试
 /*
 $result = Db::table('publish')->where([
@@ -432,8 +457,37 @@ echo $sql;
  */
 
 
+/*
+ *闭包函数
+ * $result = DB::table('publish')->
+ * where([
+ *  [A = B],
+ * ])
+ * ->where(function($query){
+ *  $query->where([
+ *      [],
+ *      [],
+ * ]);
+ * })
+ * ->select();
+ *
+ * ///////////////////////
+ *
+ * $result = DB::table('publish')->
+ * where([
+ *  [A = B],
+ * ])
+ * ->whereOr(function($query){
+ *  $query->where([
+ *      [],
+ *      [],
+ * ]);
+ * })
+ * ->select();
+ *
+ */
 
 
 
 
-//var_dump($result);
+

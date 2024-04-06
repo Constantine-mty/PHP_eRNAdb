@@ -9,19 +9,32 @@ include "./templates/base.php";
 include "./templates/header.php";
 ?>
 
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card" id="card_browser_facet" style="margin-top: 20px;margin-bottom: 20px">
+
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card" id="card_browser_eRNA" style="margin-top: 20px;margin-bottom: 20px">
 <!--DataTables pos-->
-<table id="eRNA_id" class="display">
-    <thead>
-    <tr>
-        <th>Enhancer ID</th>
-        <th>Chr.</th>
-        <th>Start.</th>
-        <th>End. ID</th>
-        <th>Tissue</th>
-        <th>Score.</th>
-    </tr>
-    </thead>
-</table>
+                <table id="eRNA_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>Enhancer ID.</th>
+                            <th>Chr.</th>
+                            <th>Start.</th>
+                            <th>End.</th>
+                            <th>Tissue.</th>
+                            <th>Score.</th>
+                        </tr>
+                        </thead>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!--客户端分页（逻辑分页）-->
@@ -37,23 +50,14 @@ include "./templates/header.php";
             //dataSrc: 'data'
         },
         dataType:'json',
+        dom: 'lBfrtip',
         columns: [
-            /*
-            { data: 'id' },
-            { data: 'species' },
-            { data: 'project_id' },
-            { data: 'title' },
-            { data: 'tissue' },
-            { data: 'technology' }
-            */
-
             { data: 'enhancerID' },
             { data: 'chrID' },
             { data: 'start' },
             { data: 'end' },
             { data: 'tissue' },
             { data: 'score' }
-
         ]
 
 
@@ -62,33 +66,7 @@ include "./templates/header.php";
 
 
 
-<!--
-$(document).ready(function() {
-$('#example').DataTable({
-"processing": true,
-"serverSide": true,
-"ajax": {
-"url": "your_server_endpoint",
-"type": "POST",
-"data": function(data) {
-// 传递分页参数到服务器
-data.page = data.start / data.length; // 页数
-data.limit = data.length; // 每页显示数量
-// 您还可以传递其他参数如搜索关键字等
-},
-"dataSrc": function(json) {
-// 处理从服务器返回的数据
-return json.data; // 返回数据内容，可以是json.data之类的形式
-}
-},
-"columns": [
-{ "data": "id" },
-{ "data": "name" },
-// 其他列配置
-]
-});
-});
--->
+
 
 
 
