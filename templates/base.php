@@ -18,7 +18,7 @@
     <link href="./public/css/header.css" rel="stylesheet">
     <link href="./public/css/card.css" rel="stylesheet">
     <link href="./public/css/search.css" rel="stylesheet">
-    <link href="./public/css/selectmenu.css" rel="stylesheet">
+    <!--<link href="./public/css/selectmenu.css" rel="stylesheet">-->
 
     <!-- JAVASCRIPT -->
     <!-- jquery and popper -->
@@ -26,7 +26,7 @@
     <script src="./bootstrap5/js/bootstrap.bundle.min.js" ></script>
     <!-- datatables -->
     <script src="./bootstrap5/js/jquery.dataTables.min.js"></script>
-    <script src="./public/js/selectmenu.js"></script>
+    <!--<script src="./public/js/selectmenu.js"></script>-->
 <!--
     <script src="../bootstrap5/DataTables/jquery.dataTables.min.js"></script>
     <script src="../bootstrap5/DataTables/dataTables.bootstrap4.min.js"></script>

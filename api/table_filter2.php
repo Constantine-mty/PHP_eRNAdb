@@ -24,86 +24,32 @@ $searchValue = $_POST['search']['value']; // Search value | 全局的搜索值�
 $searchQuery = '%'.$searchValue.'%';
 
 
+$map = [];
 
-if($select_specie == ''){
-    //$totalRecords 总条目的数量计数
-    $totalRecords = Db::table('publish')->
-   count();
-
-
-//$totalRecordwithFilter 符合筛选条件的条目的数量统计
-    $totalRecordwithFilter = Db::table('publish')->
-
-//调用闭包函数query并且允许使用外部变量searchQuery
-    where(function ($query) use ($searchQuery) {
-        $query->whereOr([
-            ["species", "like", $searchQuery],
-            ["project_id", "like", $searchQuery],
-            ["technology", "like", $searchQuery],
-        ]);
-    })->
-    field('species, title, project_id, tissue, technology')->count();
-
-
-    $result = Db::table('publish')->
-
-//调用闭包函数query并且允许使用外部变量searchQuery
-    where(function ($query) use ($searchQuery) {
-        $query->whereOr([
-            ["species", "like", $searchQuery],
-            ["project_id", "like", $searchQuery],
-            ["technology", "like", $searchQuery],
-        ]);
-    })->
-    field('species, title, project_id, tissue, technology')->
-    order($columnName . ' ' . $columnSortOrder)->
-    limit($row, $rowperpage)->select();
-
-
-    /*
-where([
-    //["species","=",$_POST['select_specie']],
-    ["species","like",'%'.$searchQuery.'%'],
-])->
-whereOr([
-    ["project_id","like",'%'.$searchQuery.'%'],
-])->
-whereOr([
-    ["technology","like",'%'.$searchQuery.'%'],
-])->
-field('species, title, project_id, tissue, technology')->
-order($columnName.' '.$columnSortOrder)->
-limit($row,$rowperpage)->select();
-*/
-
-//$data
-    $data = array();
-
-    $response = array(
-        "draw" => intval($draw),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecordwithFilter,
-        "aaData" => $result
-    );
-
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
-
+// 判断并添加物种的查询条件
+if (!empty($select_specie)) {
+    $map[] = ['species', '=', $select_specie];
 }
-else {
 
+// 判断并添加实验和组织的查询条件
+if (!empty($select_experiment)) {
+    $map[] = ['technology', '=', $select_experiment];
+}
+
+if (!empty($select_tissue)) {
+    $map[] = ['tissue', '=', $select_tissue];
+}
+
+// 构建查询
+//$data = Db::name('your_table_name')->where($map)->select();
 
 //$totalRecords 总条目的数量计数
-    $totalRecords = Db::table('publish')->
-    where([
-        ["species", "=", $select_specie],
-    ])->count();
+$totalRecords = Db::table('publish')->where($map)->count();
 
 
 //$totalRecordwithFilter 符合筛选条件的条目的数量统计
-    $totalRecordwithFilter = Db::table('publish')->
-    where([
-        ["species", "=", $select_specie],
-    ])->
+    $totalRecordwithFilter = Db::table('publish')->where($map)->
+
 //调用闭包函数query并且允许使用外部变量searchQuery
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
@@ -115,10 +61,9 @@ else {
     field('species, title, project_id, tissue, technology')->count();
 
 
-    $result = Db::table('publish')->
-    where([
-        ["species", "=", $select_specie],
-    ])->
+
+    $result = Db::table('publish')->where($map)->
+
 //调用闭包函数query并且允许使用外部变量searchQuery
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
@@ -132,21 +77,6 @@ else {
     limit($row, $rowperpage)->select();
 
 
-    /*
-where([
-    //["species","=",$_POST['select_specie']],
-    ["species","like",'%'.$searchQuery.'%'],
-])->
-whereOr([
-    ["project_id","like",'%'.$searchQuery.'%'],
-])->
-whereOr([
-    ["technology","like",'%'.$searchQuery.'%'],
-])->
-field('species, title, project_id, tissue, technology')->
-order($columnName.' '.$columnSortOrder)->
-limit($row,$rowperpage)->select();
-*/
 
 //$data
     $data = array();
@@ -160,4 +90,6 @@ limit($row,$rowperpage)->select();
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
-}
+
+
+

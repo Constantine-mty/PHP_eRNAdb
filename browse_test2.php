@@ -82,8 +82,7 @@ include "./templates/header.php";
                 </table>
 
 
-                <!--TISSUE-->
-
+                <!--TEST-->
 
 
                 </div>
@@ -128,16 +127,170 @@ include "./templates/header.php";
 
 </script>
 
+<script>
+    let filter_species; // 全局作用域
+    let filter_tissue; // 全局作用域
+    let filter_technology; // 全局作用域
+</script>
+
+<script>
+        $(document).ready(function() {
+        //var filter_data;
+
+        $.ajax({
+        url: './api/filter_return.php',  // 后端 PHP 文件路径
+        method: 'POST',
+        data: { select_specie: select_specie,
+                select_experiment: select_experiment,
+                select_tissue:select_tissue},
+        success: function(response) {
+        // 成功接收后端返回的数据
+        console.log('Response from PHP:', response);
+
+        // JSON 数据解析
+        const filter_data = JSON.parse(response);
+        filter_species = filter_data.species;
+        filter_tissue = filter_data.tissue;
+        filter_technology = filter_data.technology;
+
+        // 在控制台打印变量内容
+        console.log('Species:', filter_species);
+        console.log('Tissue:', filter_tissue);
+        console.log('Technology:', filter_technology);
+
+        // 保存到后续可以直接使用的变量中
+        //saveResults(filter_species, filter_tissue, filter_technology);
+    },
+        error: function(xhr, status, error) {
+        // 错误处理
+        console.error('Error:', error);
+    }
+    });
+        /*
+            function saveResults(species, tissue, technology) {
+                // 将获取的值保存到后面可以直接使用的变量中
+                // 可以在这里对保存的值进行进一步处理或者执行其他操作
+                window.saved_species = species;
+                window.saved_tissue = tissue;
+                window.saved_technology = technology;
+
+                console.log('Saved Species:', window.saved_species);
+                console.log('Saved Tissue:', window.saved_tissue);
+                console.log('Saved Technology:', window.saved_technology);
+
+            }
+
+         */
+    });
+</script>
+
+<script>
+
+</script>
+
+<script>
+<!--函数对filter_species\tissue\technology操作，复制给var变量data_Species_、data_Experiment_Type_、data_Tissue_Type_-->
+function formatSpeciesData(speciesData) {
+    var data_Species_ = [];
+
+    // 处理每个物种的数据
+    Object.keys(speciesData).forEach(function(species) {
+        var speciesCount = speciesData[species]; // 物种数量
+
+        // 根据物种生成 HTML 结构
+        var speciesName = "";
+        var speciesID = "";
+        switch (species) {
+            case 'Mouse':
+                speciesName = 'Mus musculus';
+                speciesID = 'Mouse';
+                break;
+            case 'Human':
+                speciesName = 'Homo sapiens';
+                speciesID = 'Human';
+                break;
+            case 'Human/Mouse':
+                speciesName = 'Homo_Mus';
+                speciesID = 'Human/Mouse';
+                break;
+            default:
+                speciesName = species;
+                speciesID = species;
+        }
+
+        var speciesHTML = "<a title='" + speciesName + "' type='button' class='list-group-item' id='" + speciesID + "' data-name='" + speciesName + "' data-type='Species'>" +
+            "<span class='badge badge-default' style='background-color: #0a53be'>" + speciesCount + "</span> " + speciesName + "</a>";
+
+        // 将 HTML 结构添加到数组中
+        data_Species_.push([speciesHTML]);
+    });
+
+    return data_Species_;
+}
+
+function formatTissueData(tissueData) {
+    var data_Tissue_ = [];
+
+    // 处理每个组织的数据
+    Object.keys(tissueData).forEach(function(tissue) {
+        var tissueCount = tissueData[tissue]; // 组织数量
+
+        // 根据组织生成 HTML 结构
+        var tissueName = tissue;
+        var tissueID = tissue;
+
+        var tissueHTML = "<a title='" + tissueName + "' type='button' class='list-group-item' id='" + tissueID + "' data-name='" + tissueName + "' data-type='Tissue'>" +
+            "<span class='badge badge-default' style='background-color: #0a53be'>" + tissueCount + "</span> " + tissueName + "</a>";
+
+        // 将 HTML 结构添加到数组中
+        data_Tissue_.push([tissueHTML]);
+    });
+
+    return data_Tissue_;
+}
+
+function formatTechnologyData(technologyData) {
+    var data_Technology_ = [];
+
+    // 处理每种技术的数据
+    Object.keys(technologyData).forEach(function(technology) {
+        var technologyCount = technologyData[technology]; // 技术数量
+
+        // 根据技术生成 HTML 结构
+        var technologyName = technology;
+        var technologyID = technology;
+
+        var technologyHTML = "<a title='" + technologyName + "' type='button' class='list-group-item' id='" + technologyID + "' data-name='" + technologyName + "' data-type='Technology'>" +
+            "<span class='badge badge-default' style='background-color: #0a53be'>" + technologyCount + "</span> " + technologyName + "</a>";
+
+        // 将 HTML 结构添加到数组中
+        data_Technology_.push([technologyHTML]);
+    });
+
+    return data_Technology_;
+}
+
+
+
+
+
+</script>
+
+
 
 
 <script>
-    var data_Species_ = [
-        ["<a title='Homo sapiens' type=\"button\" class=\"list-group-item\" id='Human' data-name=\"Homo sapiens\" data-type='Species'><span class='badge badge-default' style='background-color: #0a53be'>56<\/span> Homo sapiens<\/a>"],
-        ["<a title='Mus musculus' type=\"button\" class=\"list-group-item\" id='Mouse' data-name=\"Mus musculus\" data-type='Species'><span class='badge badge-default' style='background-color: #0a53be'>115<\/span> Mus musculus<\/a>"],
-        ["<a title='Homo_Mus' type=\"button\" class=\"list-group-item\" id='Human/Mouse' data-name=\"Homo_Mus\" data-type='Species'><span class='badge badge-default' style='background-color: #0a53be'>17<\/span> Homo_Mus<\/a>"]
-    ];
+// 假设您已经获取到 species 数据存储在 species 变量中
+const species = {Mouse: 109, 'Human/Mouse': 7, Human: 55};
+//const species = window.filter_species;
 
+var formattedSpeciesData = formatSpeciesData(species);
+console.log(formattedSpeciesData);
+
+// formattedSpeciesData 就是生成的数组，按照您所需的格式存储了处理后的 species 数据
 </script>
+
+
 
 <script>
     $('#Species_').DataTable( {
@@ -157,28 +310,14 @@ include "./templates/header.php";
         //dataType:'json',
         //dom: 'lBfrtip',
         order:[],
-        data:data_Species_
+        data:formattedSpeciesData
     } );
 </script>
 
 
 <script>
     // title; id; name
-    var data_Experiment_Type_ = [
-        ["<a title='Smart-seq2' type=\"button\" class=\"list-group-item\" id='Smart-seq2' data-name=\"Smart-seq2\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>152<\/span> Smart-seq2<\/a>"],
-        ["<a title='RamDA-seq' type=\"button\" class=\"list-group-item\" id='RamDA-seq' data-name=\"RamDA-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>136<\/span> RamDA-seq<\/a>"],
-        ["<a title='MATQ-seq' type=\"button\" class=\"list-group-item\" id='MATQ-seq' data-name=\"MATQ-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>112<\/span> MATQ-seq<\/a>"],
-        ["<a title='Tang' type=\"button\" class=\"list-group-item\" id='Tang' data-name=\"Tang\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>79<\/span> Tang<\/a>"],
-        ["<a title='C1-CAGE' type=\"button\" class=\"list-group-item\" id='C1-CAGE' data-name=\"C1 CAGE\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>64<\/span> C1-CAGE<\/a>"],
-        ["<a title='snRandom-seq' type=\"button\" class=\"list-group-item\" id='snRandom-seq' data-name=\"snRandom-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>60<\/span> snRandom-seq<\/a>"],
-        ["<a title='snHH-seq' type=\"button\" class=\"list-group-item\" id='snHH-seq' data-name=\"snHH-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>18<\/span> snHH-seq<\/a>"],
-        ["<a title='scGRO-seq' type=\"button\" class=\"list-group-item\" id='scGRO-seq' data-name=\"scGRO-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>16<\/span> scGRO-seq<\/a>"],
-        ["<a title='VASA-Seq' type=\"button\" class=\"list-group-item\" id='VASA-Seq' data-name=\"VASA-Seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>13<\/span> VASA-Seq<\/a>"],
-        ["<a title='Start-Seq-Total' type=\"button\" class=\"list-group-item\" id='Start-Seq-Total' data-name=\"Start-Seq-Total\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>10<\/span> Start-Seq-Total<\/a>"],
-        ["<a title='SUPeR-seq' type=\"button\" class=\"list-group-item\" id='SUPeR-seq' data-name=\"SUPeR-seq\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>8<\/span> SUPeR-seq<\/a>"],
-        ["<a title='SMARTer' type=\"button\" class=\"list-group-item\" id='SMARTer' data-name=\"SMARTer\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>8<\/span> SMARTer<\/a>"],
-        ["<a title='FIPRESCI' type=\"button\" class=\"list-group-item\" id='FIPRESCI' data-name=\"FIPRESCI\" data-type='Experiment_Type'><span class='badge badge-default' style='background-color: #0a53be'>6<\/span> FIPRESCI<\/a>"]
-    ];
+    var data_Experiment_Type_ = [];
 </script>
 
 
@@ -189,16 +328,6 @@ include "./templates/header.php";
         "pageLength": 3,
         "searching": false,
         "lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
-        //"serverSide": true,
-        //"serverMethod": 'post',
-        //ajax: {
-        //  url: './api/filter_return.php',
-        //data:{
-        //  select_specie:select_specie,
-        //},
-        //},
-        //dataType:'json',
-        //dom: 'lBfrtip',
         order:[],
         data:data_Experiment_Type_
     } );
@@ -212,11 +341,7 @@ include "./templates/header.php";
 
 
 <script>
-    var data_Tissue_Type_ = [
-        ["<a title='Adipose' type=\"button\" class=\"list-group-item\" id='Adipose' data-name=\"Adipose\" data-type='Tissue_Type'><span class='badge badge-default'  style='background-color: #0a53be'>330<\/span> Adipose<\/a>"],
-        ["<a title='Liver' type=\"button\" class=\"list-group-item\" id='Liver' data-name=\"Liver\" data-type='Tissue_Type'><span class='badge badge-default' style='background-color: #0a53be'>152<\/span> Liver<\/a>"],
-        ["<a title='Skin' type=\"button\" class=\"list-group-item\" id='Skin' data-name=\"Skin\" data-type='Tissue_Type'><span class='badge badge-default' style='background-color: #0a53be'>136<\/span> Skin<\/a>"]
-    ];
+    var data_Tissue_Type_ = [];
 </script>
 <script>
     $('#Tissue_Type_').DataTable( {
@@ -225,16 +350,6 @@ include "./templates/header.php";
         "pageLength": 3,
         "searching": false,
         "lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
-        //"serverSide": true,
-        //"serverMethod": 'post',
-        //ajax: {
-          //  url: './api/filter_return.php',
-            //data:{
-              //  select_specie:select_specie,
-            //},
-        //},
-        //dataType:'json',
-        //dom: 'lBfrtip',
         order:[],
         data:data_Tissue_Type_
     } );
