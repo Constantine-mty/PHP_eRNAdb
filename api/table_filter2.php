@@ -54,7 +54,9 @@ $totalRecords = Db::table('publish')->where($map)->count();
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
             ["species", "like", $searchQuery],
+            //["title", "like", $searchQuery],
             ["project_id", "like", $searchQuery],
+            ["tissue", "like", $searchQuery],
             ["technology", "like", $searchQuery],
         ]);
     })->
@@ -68,7 +70,9 @@ $totalRecords = Db::table('publish')->where($map)->count();
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
             ["species", "like", $searchQuery],
+            //["title", "like", $searchQuery],
             ["project_id", "like", $searchQuery],
+            ["tissue", "like", $searchQuery],
             ["technology", "like", $searchQuery],
         ]);
     })->

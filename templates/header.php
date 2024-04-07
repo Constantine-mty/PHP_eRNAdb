@@ -39,14 +39,14 @@
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ANALYSIS</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="./detail_study.php">Visualization</a></li>
-                        <li><a class="dropdown-item" href="#">Analysis Tools</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="./browse.php">Analysis Tools</a></li>
+                        <li><a class="dropdown-item" href="./browse_test.php">Something else here</a></li>
                     </ul>
                 </li>
 
                 <!-- navbar Download -->
                 <li class="nav-item" style="margin-right: 12px">
-                    <a class="nav-link" href="./browse.php" aria-expanded="false">DOWNLOAD</a>
+                    <a class="nav-link" href="./browse_test2.php" aria-expanded="false">DOWNLOAD</a>
                 </li>
 
                 <!-- navbar Contact -->

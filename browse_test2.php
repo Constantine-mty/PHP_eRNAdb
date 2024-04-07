@@ -5,6 +5,7 @@ include "./templates/base.php";
 ?>
 
 
+
 <body id="body">
 <!--include header-->
 <?php
@@ -127,15 +128,17 @@ include "./templates/header.php";
 
 </script>
 
-<script>
-    let filter_species; // 全局作用域
-    let filter_tissue; // 全局作用域
-    let filter_technology; // 全局作用域
-</script>
+
 
 <script>
+
+    var filter_species; // 全局作用域
+    var filter_tissue; // 全局作用域
+    var filter_technology; // 全局作用域
+
+    //接受后端返回的json，经过函数处理后，被不同筛选栏的表格调用
         $(document).ready(function() {
-        //var filter_data;
+        var data_Species_;
 
         $.ajax({
         url: './api/filter_return.php',  // 后端 PHP 文件路径
@@ -145,7 +148,7 @@ include "./templates/header.php";
                 select_tissue:select_tissue},
         success: function(response) {
         // 成功接收后端返回的数据
-        console.log('Response from PHP:', response);
+        //console.log('Response from PHP:', response);
 
         // JSON 数据解析
         const filter_data = JSON.parse(response);
@@ -153,43 +156,81 @@ include "./templates/header.php";
         filter_tissue = filter_data.tissue;
         filter_technology = filter_data.technology;
 
+
         // 在控制台打印变量内容
         console.log('Species:', filter_species);
         console.log('Tissue:', filter_tissue);
         console.log('Technology:', filter_technology);
 
-        // 保存到后续可以直接使用的变量中
-        //saveResults(filter_species, filter_tissue, filter_technology);
+
+        //格式化处理 filter 数据，调用的format系列函数，在下方定义
+        data_Species_ = formatSpeciesData(filter_species);
+        data_Experiment_Type_ = formatTechnologyData(filter_technology);
+        data_Tissue_Type_ = formatTissueData(filter_tissue);
+
+            // 在调用formatSpeciesData之后，继续处理 data_Species_ 或者执行其他操作
+            //console.log(data_Species_);
+
+            // 在数据准备就绪后，初始化表格(顺序很重要！！！)
+            initDataTable(data_Species_,data_Experiment_Type_,data_Tissue_Type_);
+
     },
         error: function(xhr, status, error) {
         // 错误处理
         console.error('Error:', error);
     }
     });
-        /*
-            function saveResults(species, tissue, technology) {
-                // 将获取的值保存到后面可以直接使用的变量中
-                // 可以在这里对保存的值进行进一步处理或者执行其他操作
-                window.saved_species = species;
-                window.saved_tissue = tissue;
-                window.saved_technology = technology;
 
-                console.log('Saved Species:', window.saved_species);
-                console.log('Saved Tissue:', window.saved_tissue);
-                console.log('Saved Technology:', window.saved_technology);
+            function initDataTable(species,experiment,tissue) {
+                // 使用 data 初始化 dataTable
+                //console.log('Initializing DataTable with data:', data);
+                // 在这里初始化您的dataTable，确保在data准备就绪的情况下进行
+                $('#Species_').DataTable( {
+                    "processing": true,
+                    "paging": true,
+                    "pageLength": 3,
+                    "info": false, //底部文字
+                    "searching": false,
+                    "lengthChange": false, //禁止show框
+                    //order:[], 这个选项是按照返回的json次序展示行，但是允许点击重新排序
+                    "ordering": false, //禁止点击排序
+                    data:species
+                } );
 
+                $('#Platform_').DataTable( {
+                    "processing": true,
+                    "paging": true,
+                    "pageLength": 4,
+                    "info": false,
+                    //"pagingType": 'simple_numbers',
+                    "searching": false,
+                    "lengthChange": false,
+                    //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
+                    //order:[],
+                    "ordering": false,
+                    data:experiment
+                } );
+
+                $('#Tissue_Type_').DataTable( {
+                    "processing": true,
+                    "paging": true,
+                    "pageLength": 4,
+                    "info": false,
+                    "searching": false,
+                    "lengthChange": false,
+                    //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
+                    //order:[],
+                    "ordering": false,
+                    data:tissue
+                } );
             }
 
-         */
     });
 </script>
 
-<script>
-
-</script>
 
 <script>
-<!--函数对filter_species\tissue\technology操作，复制给var变量data_Species_、data_Experiment_Type_、data_Tissue_Type_-->
+//定义函数对后端返回值操作，组装值变为HTML代码，赋值给变量，从而被DataTable调用
 function formatSpeciesData(speciesData) {
     var data_Species_ = [];
 
@@ -236,10 +277,10 @@ function formatTissueData(tissueData) {
         var tissueCount = tissueData[tissue]; // 组织数量
 
         // 根据组织生成 HTML 结构
-        var tissueName = tissue;
-        var tissueID = tissue;
+        var tissueName = tissue
+        var tissueID = tissue
 
-        var tissueHTML = "<a title='" + tissueName + "' type='button' class='list-group-item' id='" + tissueID + "' data-name='" + tissueName + "' data-type='Tissue'>" +
+        var tissueHTML = "<a title='" + tissueName + "' type='button' class='list-group-item' id='" + tissueID + "' data-name='" + tissueName + "' data-type='Tissue_Type'>" +
             "<span class='badge badge-default' style='background-color: #0a53be'>" + tissueCount + "</span> " + tissueName + "</a>";
 
         // 将 HTML 结构添加到数组中
@@ -257,10 +298,10 @@ function formatTechnologyData(technologyData) {
         var technologyCount = technologyData[technology]; // 技术数量
 
         // 根据技术生成 HTML 结构
-        var technologyName = technology;
-        var technologyID = technology;
+        var technologyName = technology
+        var technologyID = technology
 
-        var technologyHTML = "<a title='" + technologyName + "' type='button' class='list-group-item' id='" + technologyID + "' data-name='" + technologyName + "' data-type='Technology'>" +
+        var technologyHTML = "<a title='" + technologyName + "' type='button' class='list-group-item' id='" + technologyID + "' data-name='" + technologyName + "' data-type='Experiment_Type'>" +
             "<span class='badge badge-default' style='background-color: #0a53be'>" + technologyCount + "</span> " + technologyName + "</a>";
 
         // 将 HTML 结构添加到数组中
@@ -278,87 +319,8 @@ function formatTechnologyData(technologyData) {
 
 
 
-
 <script>
-// 假设您已经获取到 species 数据存储在 species 变量中
-const species = {Mouse: 109, 'Human/Mouse': 7, Human: 55};
-//const species = window.filter_species;
-
-var formattedSpeciesData = formatSpeciesData(species);
-console.log(formattedSpeciesData);
-
-// formattedSpeciesData 就是生成的数组，按照您所需的格式存储了处理后的 species 数据
-</script>
-
-
-
-<script>
-    $('#Species_').DataTable( {
-        "processing": true,
-        "paging": true,
-        "pageLength": 3,
-        "searching": false,
-        "lengthChange": false,
-        //"serverSide": true,
-        //"serverMethod": 'post',
-        //ajax: {
-        //  url: './api/filter_return.php',
-        //data:{
-        //  select_specie:select_specie,
-        //},
-        //},
-        //dataType:'json',
-        //dom: 'lBfrtip',
-        order:[],
-        data:formattedSpeciesData
-    } );
-</script>
-
-
-<script>
-    // title; id; name
-    var data_Experiment_Type_ = [];
-</script>
-
-
-<script>
-    $('#Platform_').DataTable( {
-        "processing": true,
-        "paging": true,
-        "pageLength": 3,
-        "searching": false,
-        "lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
-        order:[],
-        data:data_Experiment_Type_
-    } );
-
-</script>
-
-
-
-
-
-
-
-<script>
-    var data_Tissue_Type_ = [];
-</script>
-<script>
-    $('#Tissue_Type_').DataTable( {
-        "processing": true,
-        "paging": true,
-        "pageLength": 3,
-        "searching": false,
-        "lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
-        order:[],
-        data:data_Tissue_Type_
-    } );
-
-</script>
-
-
-
-<script>
+    //主表格初始化，返回所有符合筛选条件后的数据
     $('#experiments').DataTable( {
         "processing": true,
         "serverSide": true,
@@ -397,7 +359,7 @@ console.log(formattedSpeciesData);
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
+                activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
 
@@ -405,8 +367,11 @@ console.log(formattedSpeciesData);
             var id = event.target.id;
             var newUrl = currentPage;
 
+            var escapedId = id.replace(/ /g, "%20");
+
             if (id === selectedOption) {
-                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Species=' + id + '(&?)'), '$1').replace(/&$/, '');
+                //newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Species=' + id + '(&?)'), '$1').replace(/&$/, '');
+                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Species=' + escapedId + '(&?)'), '$1').replace(/&$/, '');
             } else {
                 newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Species=' + id;
             }
@@ -431,7 +396,7 @@ console.log(formattedSpeciesData);
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
+                activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
 
@@ -439,10 +404,14 @@ console.log(formattedSpeciesData);
             var id = event.target.id;
             var newUrl = currentPage;
 
+            var escapedId = id.replace(/ /g, "%20").replace(/&/g, "%26").replace(/\+/, "%2B");
+            var encodedId = encodeURIComponent(id);
+
             if (id === selectedOption) {
-                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Experiment=' + id + '(&?)'), '$1').replace(/&$/, '');
+                //newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Experiment=' + id + '(&?)'), '$1').replace(/&$/, '');
+                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Experiment=' + escapedId + '(&?)'), '$1').replace(/&$/, '');
             } else {
-                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Experiment=' + id;
+                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Experiment=' + encodedId;
             }
 
             window.location.href = newUrl;
@@ -465,7 +434,7 @@ console.log(formattedSpeciesData);
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
+                activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
 
@@ -473,154 +442,35 @@ console.log(formattedSpeciesData);
             var id = event.target.id;
             var newUrl = currentPage;
 
+            // ' '-->%20、&-->%26、'+'-->%2B、','-->%2C
+            //（特殊：浏览器会自动解析%20的路由为空格，所以只需要处理取消按钮激活）
+            //g 代表所有符合条件的符号
+            var escapedId = id.replace(/ /g, "%20").replace(/&/g, "%26").replace(/\+/g, "%2B").replace(/,/g, "%2C");
+            var encodedId = encodeURIComponent(id);
+
             if (id === selectedOption) {
-                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Tissue=' + id + '(&?)'), '$1').replace(/&$/, '');
+                // 取消激活时移除选中参数
+                //newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Tissue=' + id + '(&?)'), '$1').replace(/&$/, '');
+                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Tissue=' + escapedId + '(&?)'), '$1').replace(/&$/, '');
             } else {
-                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Tissue=' + id;
+                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Tissue=' + encodedId;
             }
 
             window.location.href = newUrl;
         }
+
 
         document.addEventListener("click", function(event) {
             if (event.target && event.target.getAttribute("data-type") === "Tissue_Type") {
                 handleButtonClick(event);
             }
         });
+
     });
 </script>
 
 
 
-
-<!-- 第二次实现，功能为激活按钮，并且退回上一次的路由
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var currentPage = window.location.href;
-
-        // 获取 URL 中的 selectedOption_Species 参数值
-        var urlParams = new URLSearchParams(window.location.search);
-        var selectedOption = urlParams.get('selectedOption_Species');
-
-        // 根据参数值激活对应的按钮
-        if (selectedOption) {
-            var activeButton = document.getElementById(selectedOption);
-            if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
-            }
-        }
-
-        document.addEventListener("click", function(event) {
-            if (event.target && event.target.getAttribute("data-type") === "Species") {
-                var id = event.target.id;
-                if (id === selectedOption) {
-                    window.history.back(); // 如果再次点击已激活的按钮，则返回上一页
-                } else {
-                    var newUrl = currentPage + (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Species=' + id;
-                    window.location.href = newUrl;
-                }
-            }
-        });
-    });
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var currentPage = window.location.href;
-
-        // 获取 URL 中的 selectedOption_Species 参数值
-        var urlParams = new URLSearchParams(window.location.search);
-        var selectedOption = urlParams.get('selectedOption_Experiment');
-
-        // 根据参数值激活对应的按钮
-        if (selectedOption) {
-            var activeButton = document.getElementById(selectedOption);
-            if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
-            }
-        }
-
-        document.addEventListener("click", function(event) {
-            if (event.target && event.target.getAttribute("data-type") === "Experiment_Type") {
-                var id = event.target.id;
-                if (id === selectedOption) {
-                    window.history.back(); // 如果再次点击已激活的按钮，则返回上一页
-                } else {
-                    var newUrl = currentPage + (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Experiment=' + id;
-                    window.location.href = newUrl;
-                }
-            }
-        });
-    });
-</script>
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var currentPage = window.location.href;
-
-        // 获取 URL 中的 selectedOption_Species 参数值
-        var urlParams = new URLSearchParams(window.location.search);
-        var selectedOption = urlParams.get('selectedOption_Tissue');
-
-        // 根据参数值激活对应的按钮
-        if (selectedOption) {
-            var activeButton = document.getElementById(selectedOption);
-            if (activeButton) {
-                activeButton.style.backgroundColor = "red"; // 设置激活状态的样式
-            }
-        }
-
-        document.addEventListener("click", function(event) {
-            if (event.target && event.target.getAttribute("data-type") === "Tissue_Type") {
-                var id = event.target.id;
-                if (id === selectedOption) {
-                    window.history.back(); // 如果再次点击已激活的按钮，则返回上一页
-                } else {
-                    var newUrl = currentPage + (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Tissue=' + id;
-                    window.location.href = newUrl;
-                }
-            }
-        });
-    });
-</script>
--->
-
-
-<!-- 第一次实现，只是按钮功能
-<script>
-    document.addEventListener("click", function(event) {
-        if (event.target && event.target.getAttribute("data-type") === "Experiment_Type") {
-            var id = event.target.id;
-            if (id) {
-                var currentPage = window.location.href;
-                var newUrl = currentPage + (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Experiment=' + id;
-                window.location.href = newUrl;
-            } else {
-                console.log("Button does not have an ID.");
-            }
-        }
-    });
-</script>
-
-
-<script>
-    document.addEventListener("click", function(event) {
-        if (event.target && event.target.getAttribute("data-type") === "Tissue_Type") {
-            var id = event.target.id;
-            if (id) {
-                var currentPage = window.location.href;
-                var newUrl = currentPage + (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Tissue=' + id;
-                window.location.href = newUrl;
-            } else {
-                console.log("Button does not have an ID.");
-            }
-        }
-    });
-</script>
--->
 
 
 
