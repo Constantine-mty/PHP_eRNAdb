@@ -24,12 +24,13 @@ include "./templates/header.php";
     <div class="row flex-xl-nowrap">
         <!--get筛选开始-->
         <div class="col-lg-3 bd-sidebar">
-            <nav class="bd-links" style="background-color: navajowhite">
+            <nav class="bd-links" style="background-color: white">
+                <!--navajowhite-->
 
                 <!--SPECIES-->
                 <!--设置id，table-->
                 <table class='fenye table-bordered' style="background-color: white" id="Species_">
-                    <thead style="background-color: #0dcaf0">
+                    <thead style="background-color: #63938c">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -50,7 +51,7 @@ include "./templates/header.php";
 
                 <!--PLATFORM-->
                 <table class='fenye table-bordered' id="Platform_">
-                    <thead style="background-color: #0dcaf0">
+                    <thead style="background-color: #63938c">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -69,7 +70,7 @@ include "./templates/header.php";
 
                 <!--DATA_TYPE-->
                 <table class='fenye table-bordered' id="Tissue_Type_">
-                    <thead style="background-color: #0dcaf0">
+                    <thead style="background-color: #63938c">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -115,9 +116,8 @@ include "./templates/header.php";
 
 
 
-<!--客户端分页（逻辑分页）-->
+<!--1. 获取url参数(全局变量)-->
 <script>
-
     let params = new URLSearchParams(document.location.search.substring(1));
     let select_specie = params.get("selectedOption_Species"); // 页面的?属性；
     let select_experiment = params.get("selectedOption_Experiment"); // 页面的?属性；
@@ -129,7 +129,7 @@ include "./templates/header.php";
 </script>
 
 
-
+<!--2. 调用后端filter_return.php，接受筛选栏数据，初始化筛选栏表格-->
 <script>
 
     var filter_species; // 全局作用域
@@ -197,6 +197,16 @@ include "./templates/header.php";
                     data:species
                 } );
 
+                if (select_specie) {
+                    var activeButton_specie = document.getElementById(select_specie);
+                    if (activeButton_specie) {
+                        activeButton_specie.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式 #5e72e4 #2e303f
+                        activeButton_specie.style.color = "#FFFFFF"
+                    } else {
+                        console.log('没有找到 ID 为 XXX 的按钮。');
+                    }
+                }
+
                 $('#Platform_').DataTable( {
                     "processing": true,
                     "paging": true,
@@ -211,6 +221,16 @@ include "./templates/header.php";
                     data:experiment
                 } );
 
+                if (select_experiment) {
+                    var activeButton_experimnet = document.getElementById(select_experiment);
+                    if (activeButton_experimnet) {
+                        activeButton_experimnet.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                        activeButton_experimnet.style.color = "#FFFFFF"
+                    } else {
+                        console.log('没有找到 ID 为  XXX  的按钮。');
+                    }
+                }
+
                 $('#Tissue_Type_').DataTable( {
                     "processing": true,
                     "paging": true,
@@ -223,14 +243,26 @@ include "./templates/header.php";
                     "ordering": false,
                     data:tissue
                 } );
+
+                if (select_tissue) {
+                    var activeButton_tissue = document.getElementById(select_tissue);
+                    if (activeButton_tissue) {
+                        activeButton_tissue.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                        activeButton_tissue.style.color = "#FFFFFF"
+                    } else {
+                        console.log('没有找到 ID 为  XXX  的按钮。');
+                    }
+                }
             }
 
     });
 </script>
 
 
+<!--3. 分辨定义species\technology\tissue，对后端返回值操作，组装值变为HTML代码，赋值给变量，从而被DataTable调用的函数-->
 <script>
-//定义函数对后端返回值操作，组装值变为HTML代码，赋值给变量，从而被DataTable调用
+//Species函数，在2.中被调用
+//speciesName & speciesID
 function formatSpeciesData(speciesData) {
     var data_Species_ = [];
 
@@ -251,7 +283,7 @@ function formatSpeciesData(speciesData) {
                 speciesID = 'Human';
                 break;
             case 'Human/Mouse':
-                speciesName = 'Homo_Mus';
+                speciesName = 'Homo / Mus';
                 speciesID = 'Human/Mouse';
                 break;
             default:
@@ -260,7 +292,7 @@ function formatSpeciesData(speciesData) {
         }
 
         var speciesHTML = "<a title='" + speciesName + "' type='button' class='list-group-item' id='" + speciesID + "' data-name='" + speciesName + "' data-type='Species'>" +
-            "<span class='badge badge-default' style='background-color: #0a53be'>" + speciesCount + "</span> " + speciesName + "</a>";
+            "<span class='badge badge-default' style='background-color: #003266'>" + speciesCount + "</span> " + speciesName + "</a>";
 
         // 将 HTML 结构添加到数组中
         data_Species_.push([speciesHTML]);
@@ -269,6 +301,8 @@ function formatSpeciesData(speciesData) {
     return data_Species_;
 }
 
+//Tissue函数，在2.中被调用
+//TissueName & TissueID
 function formatTissueData(tissueData) {
     var data_Tissue_ = [];
 
@@ -281,7 +315,7 @@ function formatTissueData(tissueData) {
         var tissueID = tissue
 
         var tissueHTML = "<a title='" + tissueName + "' type='button' class='list-group-item' id='" + tissueID + "' data-name='" + tissueName + "' data-type='Tissue_Type'>" +
-            "<span class='badge badge-default' style='background-color: #0a53be'>" + tissueCount + "</span> " + tissueName + "</a>";
+            "<span class='badge badge-default' style='background-color: #003266'>" + tissueCount + "</span> " + tissueName + "</a>";
 
         // 将 HTML 结构添加到数组中
         data_Tissue_.push([tissueHTML]);
@@ -290,6 +324,8 @@ function formatTissueData(tissueData) {
     return data_Tissue_;
 }
 
+//Tech函数，在2.中被调用
+//technologyName & technologyID
 function formatTechnologyData(technologyData) {
     var data_Technology_ = [];
 
@@ -302,7 +338,7 @@ function formatTechnologyData(technologyData) {
         var technologyID = technology
 
         var technologyHTML = "<a title='" + technologyName + "' type='button' class='list-group-item' id='" + technologyID + "' data-name='" + technologyName + "' data-type='Experiment_Type'>" +
-            "<span class='badge badge-default' style='background-color: #0a53be'>" + technologyCount + "</span> " + technologyName + "</a>";
+            "<span class='badge badge-default' style='background-color: #003266'>" + technologyCount + "</span> " + technologyName + "</a>";
 
         // 将 HTML 结构添加到数组中
         data_Technology_.push([technologyHTML]);
@@ -311,14 +347,10 @@ function formatTechnologyData(technologyData) {
     return data_Technology_;
 }
 
-
-
-
-
 </script>
 
 
-
+<!--4. 结果数据JSON的获取，通过table_filter2.php后端-->
 <script>
     //主表格初始化，返回所有符合筛选条件后的数据
     $('#experiments').DataTable( {
@@ -350,23 +382,27 @@ function formatTechnologyData(technologyData) {
 </script>
 
 
+<!--5. 页面完成加载后，为Species筛选栏的button赋予路由跳转的功能，激活时搜索条件，取消激活时条件去除-->
 <script>
+
     document.addEventListener("DOMContentLoaded", function() {
         var currentPage = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
         var selectedOption = urlParams.get('selectedOption_Species');
 
+/*      废弃；功能移植到表格初始化部分完成
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
                 activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
-
+*/
         function handleButtonClick(event) {
             var id = event.target.id;
             var newUrl = currentPage;
 
+            //escapedID为取消激活时路由参数
             var escapedId = id.replace(/ /g, "%20");
 
             if (id === selectedOption) {
@@ -387,24 +423,27 @@ function formatTechnologyData(technologyData) {
     });
 </script>
 
+<!--6. 页面完成加载后，为Experiment筛选栏的button赋予路由跳转的功能，激活时搜索条件，取消激活时条件去除-->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var currentPage = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
         var selectedOption = urlParams.get('selectedOption_Experiment');
 
+/*
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
                 activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
-
+*/
         function handleButtonClick(event) {
             var id = event.target.id;
             var newUrl = currentPage;
 
             var escapedId = id.replace(/ /g, "%20").replace(/&/g, "%26").replace(/\+/, "%2B");
+            //encodeID为激活时路由参数
             var encodedId = encodeURIComponent(id);
 
             if (id === selectedOption) {
@@ -425,19 +464,22 @@ function formatTechnologyData(technologyData) {
     });
 </script>
 
+
+<!--7. 页面完成加载后，为Tissue筛选栏的button赋予路由跳转的功能，激活时搜索条件，取消激活时条件去除-->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var currentPage = window.location.href;
         var urlParams = new URLSearchParams(window.location.search);
         var selectedOption = urlParams.get('selectedOption_Tissue');
 
+        /*
         if (selectedOption) {
             var activeButton = document.getElementById(selectedOption);
             if (activeButton) {
                 activeButton.style.backgroundColor = "#FE2E2E"; // 设置激活状态的样式
             }
         }
-
+*/
         function handleButtonClick(event) {
             var id = event.target.id;
             var newUrl = currentPage;
@@ -468,9 +510,6 @@ function formatTechnologyData(technologyData) {
 
     });
 </script>
-
-
-
 
 
 

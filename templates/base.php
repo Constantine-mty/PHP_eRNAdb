@@ -18,6 +18,7 @@
     <link href="./public/css/header.css" rel="stylesheet">
     <link href="./public/css/card.css" rel="stylesheet">
     <link href="./public/css/search.css" rel="stylesheet">
+    <link href="./public/css/filter_table.css" rel="stylesheet">
     <!--<link href="./public/css/selectmenu.css" rel="stylesheet">-->
 
     <!-- JAVASCRIPT -->
