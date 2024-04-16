@@ -1,4 +1,8 @@
 
+#Species__wrapper table{
+    margin-bottom: 30px;
+}
+
 
 #Species__wrapper td,
 #Tissue_Type__wrapper td,
@@ -20,7 +24,9 @@ span.badge.badge-default
 }
 
 
-
+#Species__wrapper .dataTables_paginate .paginate_button{
+    display: none;
+}
 
 
 

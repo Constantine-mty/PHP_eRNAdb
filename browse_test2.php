@@ -109,6 +109,15 @@ include "./templates/header.php";
             </table>
         </div>
     </div>
+
+    <div class="row">
+        <br><br>
+        <div id="species-dropdown"></div>
+        <br><br>
+        <div id="technology-dropdown"></div>
+        <br><br>
+        <div id="tissue-dropdown"></div>
+    </div>
 </div>
 
 
@@ -157,7 +166,13 @@ include "./templates/header.php";
         filter_technology = filter_data.technology;
 
 
-        // 在控制台打印变量内容
+        //调用函数来获取和flter筛选框中相同数据的下拉框HTML拼接输出
+        //generateSpeciesDropdown('species-dropdown' ,filter_species);
+        //generateTechnologyDropdown('technology-dropdown', filter_technology);
+        //generateTissueDropdown('tissue-dropdown', filter_tissue);
+
+
+            // 在控制台打印变量内容
         console.log('Species:', filter_species);
         console.log('Tissue:', filter_tissue);
         console.log('Technology:', filter_technology);
@@ -234,7 +249,7 @@ include "./templates/header.php";
                 $('#Tissue_Type_').DataTable( {
                     "processing": true,
                     "paging": true,
-                    "pageLength": 4,
+                    "pageLength": 6,
                     "info": false,
                     "searching": false,
                     "lengthChange": false,
@@ -348,6 +363,80 @@ function formatTechnologyData(technologyData) {
 }
 
 </script>
+
+
+<!--为select下拉框进行HTML封装，在filter_table初始化的时候，如果后续需要调用即可-->
+<script>
+
+    function generateSpeciesDropdown(containerId, speciesObj) {
+        // 获取要插入下拉框的DOM元素
+        var dropdownContainer = document.getElementById(containerId);
+
+        // 创建 <select> 元素
+        var selectElement = document.createElement('select');
+        selectElement.name = 'species_filter';
+
+        // 遍历对象的键值对并创建 <option> 元素
+        for (var key in speciesObj) {
+            if (speciesObj.hasOwnProperty(key)) {
+                var optionElement = document.createElement('option');
+                optionElement.value = key;
+                optionElement.textContent = key + ' (' + speciesObj[key] + ')';
+                selectElement.appendChild(optionElement);
+            }
+        }
+        // 将 <select> 元素添加到容器中
+        dropdownContainer.appendChild(selectElement);
+
+    }
+
+        function generateTechnologyDropdown(containerId, techObj) {
+        // 获取要插入下拉框的DOM元素
+        var dropdownContainer = document.getElementById(containerId);
+
+        // 创建 <select> 元素
+        var selectElement = document.createElement('select');
+        selectElement.name = 'technology_filter';
+
+        // 遍历对象的键值对并创建 <option> 元素
+        for (var key in techObj) {
+            if (techObj.hasOwnProperty(key)) {
+                var optionElement = document.createElement('option');
+                optionElement.value = key;
+                optionElement.textContent = key + ' (' + techObj[key] + ')';
+                selectElement.appendChild(optionElement);
+            }
+        }
+        // 将 <select> 元素添加到容器中
+        dropdownContainer.appendChild(selectElement);
+
+    }
+
+    function generateTissueDropdown(containerId, tissueObj) {
+        // 获取要插入下拉框的DOM元素
+        var dropdownContainer = document.getElementById(containerId);
+
+        // 创建 <select> 元素
+        var selectElement = document.createElement('select');
+        selectElement.name = 'tissue_filter';
+
+        // 遍历对象的键值对并创建 <option> 元素
+        for (var key in tissueObj) {
+            if (tissueObj.hasOwnProperty(key)) {
+                var optionElement = document.createElement('option');
+                optionElement.value = key;
+                optionElement.textContent = key + ' (' + tissueObj[key] + ')';
+                selectElement.appendChild(optionElement);
+            }
+        }
+        // 将 <select> 元素添加到容器中
+        dropdownContainer.appendChild(selectElement);
+
+    }
+
+</script>
+
+
 
 
 <!--4. 结果数据JSON的获取，通过table_filter2.php后端-->

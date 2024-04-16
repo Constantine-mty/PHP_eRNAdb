@@ -30,19 +30,38 @@ class Db{
         $config = require __DIR__."{$DS}..{$DS}config{$DS}database.php";
         //$config = require __DIR__."/../config/database.php";
         // $config = require __DIR__.$DS."..".$DS."config".$DS."database.php";
+
+
+        //MySQL链接，已被注释，需要时替换SQLite配置
+        /*
         $dbms = $config["dbms"];
         $host = $config["host"];
         $user = $config["user"];
         $pass = $config["pass"];
         $dbName = $config["dbName"];
+        */
 
-        $dsn="$dbms:host=$host;dbname=$dbName;charset=utf8mb4";
+        //$dsn="$dbms:host=$host;dbname=$dbName;charset=utf8mb4";
 
+        /*
         try {
-            self::$pdo = new PDO($dsn, $user, $pass); //初始化一个PDO对象      
+            self::$pdo = new PDO($dsn, $user, $pass); //初始化一个PDO对象
         } catch (PDOException $e) {
             throw new Exception("数据库连接错误: " . $e->getMessage());
         }
+        */
+
+        //SQLite配置，需要时需注释掉替换为MYSQL
+        $dbFile = $config["dbFile"]; // SQLite数据库文件路径
+        $dsn = "sqlite:" . $dbFile;
+
+        try {
+            self::$pdo = new PDO($dsn); // 初始化一个PDO对象
+        } catch (PDOException $e) {
+            throw new Exception("数据库连接错误: " . $e->getMessage());
+        }
+
+
     }
 
     private static function setAttr()
