@@ -203,7 +203,7 @@ include "./templates/header.php";
                 $('#Species_').DataTable( {
                     "processing": true,
                     "paging": true,
-                    "pageLength": 3,
+                    "pageLength": 7,
                     "info": false, //底部文字
                     "searching": false,
                     "lengthChange": false, //禁止show框
@@ -455,6 +455,8 @@ function formatTechnologyData(technologyData) {
             },
         },
         dataType:'json',
+        //order: [],
+        "order": [[ 0, "desc" ]],
         dom: 'lBfrtip',
         columns: [
             { data: 'species' },

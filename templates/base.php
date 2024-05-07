@@ -27,6 +27,7 @@
     <script src="./bootstrap5/js/bootstrap.bundle.min.js" ></script>
     <!-- datatables -->
     <script src="./bootstrap5/js/jquery.dataTables.min.js"></script>
+    <script src="./echarts-5.5.0/dist/echarts.js"></script>
     <!--<script src="./public/js/selectmenu.js"></script>-->
 <!--
     <script src="../bootstrap5/DataTables/jquery.dataTables.min.js"></script>
