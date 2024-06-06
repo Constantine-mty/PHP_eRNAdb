@@ -161,7 +161,7 @@ include "./templates/header.php";
             { data: 'title' },
             { data: 'project_id',
                 render: function ( data, type, row ) {
-                    return '<a href="detail_study.php?sid=' + data + '">' + data + '</a>'
+                    return '<a href=' + data + '"detail_study.php?sid=">' + data + '</a>'
                 }
             },
             { data: 'tissue' },

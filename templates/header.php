@@ -24,8 +24,8 @@
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">BROWSE</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./browser_Experiments.php" id="label_download">Browse by Experiments</a></li>
-                        <li><a class="dropdown-item" href="./browser_eRNA.php" id="label_download">Browse by eRNA</a></li>
+                        <li><a class="dropdown-item" href="./browse_dataset.php" id="label_download">Browse by Experiments</a></li>
+                        <li><a class="dropdown-item" href="./browse_eRNA.php" id="label_download">Browse by eRNA</a></li>
                     </ul>
                 </li>
 
@@ -46,7 +46,7 @@
 
                 <!-- navbar Download -->
                 <li class="nav-item" style="margin-right: 12px">
-                    <a class="nav-link" href="./browse_test2.php" aria-expanded="false">DOWNLOAD</a>
+                    <a class="nav-link" href="./download.php" aria-expanded="false">DOWNLOAD</a>
                 </li>
 
                 <!-- navbar Contact -->
