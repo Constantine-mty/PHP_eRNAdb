@@ -294,7 +294,8 @@ include "./templates/header.php";
 <script>
     $.ajax({
         type: 'POST',
-        url: '/eRNAdb',
+        //url: '/eRNAdb',
+        url: '/dash_app'
         data: { sid: sid },
         success: function() {
             console.log('Data sent successfully');

@@ -8,7 +8,9 @@ include "./templates/base.php";
 include "./templates/header.php";
 ?>
 
-<div id="jbrowseContainer"></div>
+<iframe src="https://lcbb.swjtu.edu.cn/" height="600px" width='500px' scrolling="no">
+
+</iframe>
 
 <script>
 

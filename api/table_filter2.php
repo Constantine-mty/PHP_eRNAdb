@@ -50,6 +50,7 @@ $totalRecords = Db::table('publish')->where($map)->count();
 //$totalRecordwithFilter 符合筛选条件的条目的数量统计
     $totalRecordwithFilter = Db::table('publish')->where($map)->
 
+
 //调用闭包函数query并且允许使用外部变量searchQuery
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
@@ -93,6 +94,13 @@ $totalRecords = Db::table('publish')->where($map)->count();
     );
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
+
+
+
+
+
+
+
 
 
 

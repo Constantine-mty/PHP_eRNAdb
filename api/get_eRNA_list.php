@@ -17,7 +17,11 @@ $result = Db::table('ernaList')->where([
 ])->field('ernaName')->select();
 
 
+// 提取ernaName值
+$ernaList = array_map(function($item) {
+    return $item['ernaName'];
+}, $result);
 
+echo json_encode($ernaList,JSON_UNESCAPED_UNICODE);
 
-//echo $result;
-echo json_encode($result,JSON_UNESCAPED_UNICODE);
+//echo json_encode($result,JSON_UNESCAPED_UNICODE);
