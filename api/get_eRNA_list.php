@@ -14,7 +14,7 @@ require dirname(__DIR__)."{$DS}app{$DS}Func.php";
 $result = Db::table('ernaList')->where([
     //['Dataset','=',$sid],
     ['dataset','=','GSE83139'],
-])->field('ernaName')->select();
+])->field('ernaName')->limit(1,10)->select();
 
 
 // 提取ernaName值

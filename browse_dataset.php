@@ -138,7 +138,7 @@ include "./templates/header.php";
 </script>
 
 
-<!--2. 调用后端filter_return.php，接受筛选栏数据，初始化筛选栏表格-->
+<!--2. 调用后端filter_return_dataset.php，接受筛选栏数据，初始化筛选栏表格-->
 <script>
 
     var filter_species; // 全局作用域
@@ -150,7 +150,7 @@ include "./templates/header.php";
         var data_Species_;
 
         $.ajax({
-        url: './api/filter_return.php',  // 后端 PHP 文件路径
+        url: './api/filter_return_dataset.php',  // 后端 PHP 文件路径
         method: 'POST',
         data: { select_specie: select_specie,
                 select_experiment: select_experiment,
@@ -447,7 +447,7 @@ function formatTechnologyData(technologyData) {
         "serverSide": true,
         "serverMethod": 'post',
         ajax: {
-            url: './api/table_filter2.php',
+            url: './api/table_filter_dataset.php',
             data:{
                 select_specie:select_specie,
                 select_experiment:select_experiment,
@@ -604,11 +604,9 @@ function formatTechnologyData(technologyData) {
 
 
 
-<!--include footer-->
 <?php
 include "./templates/footer.php";
 ?>
-
 
 
 

@@ -57,12 +57,7 @@ include "./templates/header.php";
             dataType: 'json', // 期望的返回数据类型
             success: function(data) {
 
-                //var geneList = data;
-                // 提取 ernaName 的值作为列表
-                var geneList = data.map(function(item) {
-                    return item.ernaName;
-                });
-                //var geneList = ["chr1:1270291-1271430", "chr1:9318012-9318451", "eRNA3"];
+                var geneList = data;
 
 
                 var geneDropdown1 = $("#gene1");

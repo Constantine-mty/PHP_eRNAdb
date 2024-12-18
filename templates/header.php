@@ -24,8 +24,8 @@
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">BROWSE</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./browse_dataset.php" id="label_download">Browse by Experiments</a></li>
-                        <li><a class="dropdown-item" href="./browse_eRNA.php" id="label_download">Browse by eRNA</a></li>
+                        <li><a class="dropdown-item" href="./browse_dataset.php" id="label_download">Browse by Dataset</a></li>
+                        <li><a class="dropdown-item" href="./browse_sample.php" id="label_download">Browse by Sample</a></li>
                     </ul>
                 </li>
 
@@ -38,7 +38,7 @@
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ANALYSIS</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./detail_study.php">Visualization</a></li>
+                        <li><a class="dropdown-item" href="./JBrowse2.php">Visualization</a></li>
                         <li><a class="dropdown-item" href="./browse.php">Analysis Tools</a></li>
                         <li><a class="dropdown-item" href="./browse_test.php">Something else here</a></li>
                     </ul>
