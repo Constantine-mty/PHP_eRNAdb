@@ -6,13 +6,23 @@ require dirname(__DIR__)."{$DS}app{$DS}Db.class.php";
 require dirname(__DIR__)."{$DS}app{$DS}Func.php";
 
 
-$select_dataset = $_POST['select_dataset'];
+//$select_dataset = $_POST['select_dataset'];
 $select_specie = $_POST['select_specie'];
 $select_experiment = $_POST['select_experiment'];
 $select_tissue = $_POST['select_tissue'];
-$select_cell = $_POST['select_cell'];
+//$select_cell = $_POST['select_cell'];
 
+$specie_map = [
+    'Homo Sapiens' => 'Homo sapiens',
+    'Mus Musculus' => 'Mus musculus',
+    'HUMAN' => 'Homo sapiens',
+    'MOUSE' => 'Mus musculus'
+];
 
+// 如果前端传入的物种在映射中有对应关系，则使用映射后的值
+if (array_key_exists($select_specie, $specie_map)) {
+    $select_specie = $specie_map[$select_specie];
+}
 
 
 //表单输入
@@ -29,29 +39,11 @@ $searchQuery = '%'.$searchValue.'%';
 
 
 $map = [];
+$map[] = ['Species', '=', $select_specie];
+$map[] = ['Seq', '=', $select_experiment];
+$map[] = ['Tissue', '=', $select_tissue];
 
-// 判断并添加物种的查询条件
-if (!empty($select_dataset)) {
-    $map[] = ['Study', '=', $select_dataset];
-}
 
-// 判断并添加物种的查询条件
-if (!empty($select_specie)) {
-    $map[] = ['Species', '=', $select_specie];
-}
-
-// 判断并添加实验和组织的查询条件
-if (!empty($select_experiment)) {
-    $map[] = ['Seq', '=', $select_experiment];
-}
-
-if (!empty($select_tissue)) {
-    $map[] = ['Tissue', '=', $select_tissue];
-}
-
-if (!empty($select_cell)) {
-    $map[] = ['Cell', '=', $select_cell];
-}
 
 // 构建查询
 //$data = Db::name('your_table_name')->where($map)->select();

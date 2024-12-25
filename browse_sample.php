@@ -24,7 +24,7 @@ include "./templates/header.php";
 
                 <!--Dataset-->
                 <table class='fenye table-bordered' id="Dataset_Type_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -43,7 +43,7 @@ include "./templates/header.php";
                 <!--SPECIES-->
                 <!--设置id，table-->
                 <table class='fenye table-bordered' style="background-color: white" id="Species_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -63,7 +63,7 @@ include "./templates/header.php";
 
                 <!--Tissue_TYPE-->
                 <table class='fenye table-bordered' id="Tissue_Type_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -79,7 +79,7 @@ include "./templates/header.php";
 
                 <!--Cell_TYPE-->
                 <table class='fenye table-bordered' id="Cell_Type_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -94,7 +94,7 @@ include "./templates/header.php";
 
                 <!--PLATFORM-->
                 <table class='fenye table-bordered' id="Platform_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -264,7 +264,7 @@ include "./templates/header.php";
             if (select_dataset) {
                 var activeButton_dataset = document.getElementById(select_dataset);
                 if (activeButton_dataset) {
-                    activeButton_dataset.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                    activeButton_dataset.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                     activeButton_dataset.style.color = "#FFFFFF"
                 } else {
                     console.log('没有找到 ID 为  XXX  的按钮。');
@@ -287,7 +287,7 @@ include "./templates/header.php";
             if (select_specie) {
                 var activeButton_specie = document.getElementById(select_specie);
                 if (activeButton_specie) {
-                    activeButton_specie.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式 #5e72e4 #2e303f
+                    activeButton_specie.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式 #5e72e4 #2e303f
                     activeButton_specie.style.color = "#FFFFFF"
                 } else {
                     console.log('没有找到 ID 为 XXX 的按钮。');
@@ -310,7 +310,7 @@ include "./templates/header.php";
             if (select_cell) {
                 var activeButton_cell = document.getElementById(select_cell);
                 if (activeButton_cell) {
-                    activeButton_cell.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                    activeButton_cell.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                     activeButton_cell.style.color = "#FFFFFF"
                 } else {
                     console.log('没有找到 ID 为  XXX  的按钮。');
@@ -333,7 +333,7 @@ include "./templates/header.php";
             if (select_tissue) {
                 var activeButton_tissue = document.getElementById(select_tissue);
                 if (activeButton_tissue) {
-                    activeButton_tissue.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                    activeButton_tissue.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                     activeButton_tissue.style.color = "#FFFFFF"
                 } else {
                     console.log('没有找到 ID 为  XXX  的按钮。');
@@ -357,7 +357,7 @@ include "./templates/header.php";
             if (select_experiment) {
                 var activeButton_experimnet = document.getElementById(select_experiment);
                 if (activeButton_experimnet) {
-                    activeButton_experimnet.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                    activeButton_experimnet.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                     activeButton_experimnet.style.color = "#FFFFFF"
                 } else {
                     console.log('没有找到 ID 为  XXX  的按钮。');
@@ -646,7 +646,13 @@ include "./templates/header.php";
         dataType:'json',
         //order: [],
         "order": [[ 0, "desc" ]],
-        dom: 'lBfrtip',
+        dom: "<'top'lBf>rt<'bottom'ip>",
+        buttons: [
+            {
+                extend: 'csv',
+                text: 'Download'
+            }
+        ],
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         pageLength: 50, // 设置默认显示50行
         columns: [

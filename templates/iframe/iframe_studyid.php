@@ -73,7 +73,7 @@ include "./base_iframe_test.php";
                         <div class="custom-border text-justify font-weight-400 px-4 py-2">
                             <h5 class="text-danger font-weight-bold"><i class="ni ni-tag text-warning"></i> Function introduction:</h5>
                             <p class="text-dark font-weight-400">
-                                Based on the Species and Sequencing type, users can query eRNA samples associated with a dataset.
+                                Based on the Species and Sequencing type, users can query for the results of interest dataset.
                             </p>
                             <h5 class="text-danger font-weight-bold"><i class="ni ni-tag text-warning"></i> Parameter explanation:</h5>
                             <p class="text-dark font-weight-400">1) Species: Select Homo sapiens or Mus musculus.</p>

@@ -113,7 +113,7 @@ include "./templates/header.php";
                     Search by <span style="color: #63938c;">Study</span>
                 </a>
             </div>
-            <div id="collapseStudy" class="collapse show" data-parent="#accordion">
+            <div id="collapseStudy" class="collapse" data-parent="#accordion">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
@@ -149,7 +149,8 @@ include "./templates/header.php";
 
         <div class="card mt-0">
             <div class="card-header bg-gradient-freestyle" style="line-height:0.1;" >
-                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseCellTissue" style="font-size: 18px;">
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseCellTissue">
+                    <!--style="font-size: 18px;"-->
                     <i class="ni ni-zoom-split-in text-white-50"></i> <span class="glyphicon glyphicon-arrow-down"></span>Search by <span style="color: #63938c;">Tissue/ Cell type</span>
                 </a>
             </div>
@@ -163,6 +164,24 @@ include "./templates/header.php";
                     <h1 style="font-size: 14px;" class="custom-title">Search by Cell Type</h1>
                     <iframe src="templates/iframe/iframe_cell.php" frameborder="no" height="300px" width='100%' id="tes"></iframe>
                 </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card mt-0">
+            <div class="card-header bg-gradient-freestyle" style="line-height:0.1;">
+                <a class="card-link font-weight-bold h5" data-toggle="collapse" href="#collapseStudy">
+                    Search by <span style="color: #63938c;">Single Sample</span>
+                </a>
+            </div>
+            <div id="collapseStudy" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <iframe src="./templates/iframe/iframe_sample.php" frameborder="no" height="400px" width='100%' ></iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -164,14 +164,14 @@ include "./base_iframe_test.php";
 
     function study_url() {
         // 获取选择的值，这里假设你有一个id为Species的select元素
-        //var species = $("#Spe").val();
-        //var techtype = $("#Tech").val();
+        var species = $("#Spe").val();
+        var techtype = $("#Tech").val();
         // 在这里获取其他需要的值，比如NCD，假设有一个id为NCD的select元素
-        var sid = $("#Cell").val();
+        var cell = $("#Cell").val();
 
         // 构造URL
-        //var url = '../../detail_study.php?species=' + encodeURIComponent(species) + '&study=' + encodeURIComponent(study) + '&techtype=' + encodeURIComponent(techtype);
-        var url = '../../detail_study.php?sid=' + encodeURIComponent(sid);
+        var url = '../../cell_result.php?species=' + encodeURIComponent(species) + '&techtype=' + encodeURIComponent(techtype) + '&cell=' + encodeURIComponent(cell);
+        //var url = '../../detail_study.php?sid=' + encodeURIComponent(sid);
         // 跳转到新页面
         parent.location.href = url;
     }

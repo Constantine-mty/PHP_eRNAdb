@@ -4,7 +4,22 @@
 include "./templates/base.php";
 ?>
 
+<style>
 
+    #experiments_wrapper {
+        background-color: transparent !important;
+    }
+
+    /* Define the classes to be used in the table */
+    .stripe-1 {
+        background-color: #ffffff !important;
+    }
+
+    .stripe-2 {
+        background-color: #ffffff !important;
+    }
+
+</style>
 
 <body id="body">
 <!--include header-->
@@ -30,7 +45,7 @@ include "./templates/header.php";
                 <!--SPECIES-->
                 <!--设置id，table-->
                 <table class='fenye table-bordered' style="background-color: white" id="Species_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -51,7 +66,7 @@ include "./templates/header.php";
 
                 <!--PLATFORM-->
                 <table class='fenye table-bordered' id="Platform_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -70,7 +85,7 @@ include "./templates/header.php";
 
                 <!--DATA_TYPE-->
                 <table class='fenye table-bordered' id="Tissue_Type_">
-                    <thead style="background-color: #63938c">
+                    <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
@@ -215,7 +230,7 @@ include "./templates/header.php";
                 if (select_specie) {
                     var activeButton_specie = document.getElementById(select_specie);
                     if (activeButton_specie) {
-                        activeButton_specie.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式 #5e72e4 #2e303f
+                        activeButton_specie.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式 #5e72e4 #2e303f #dec2c2
                         activeButton_specie.style.color = "#FFFFFF"
                     } else {
                         console.log('没有找到 ID 为 XXX 的按钮。');
@@ -239,7 +254,7 @@ include "./templates/header.php";
                 if (select_experiment) {
                     var activeButton_experimnet = document.getElementById(select_experiment);
                     if (activeButton_experimnet) {
-                        activeButton_experimnet.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                        activeButton_experimnet.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                         activeButton_experimnet.style.color = "#FFFFFF"
                     } else {
                         console.log('没有找到 ID 为  XXX  的按钮。');
@@ -262,7 +277,7 @@ include "./templates/header.php";
                 if (select_tissue) {
                     var activeButton_tissue = document.getElementById(select_tissue);
                     if (activeButton_tissue) {
-                        activeButton_tissue.style.backgroundColor = "#5e72e4"; // 设置激活状态的样式
+                        activeButton_tissue.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
                         activeButton_tissue.style.color = "#FFFFFF"
                     } else {
                         console.log('没有找到 ID 为  XXX  的按钮。');
@@ -455,9 +470,15 @@ function formatTechnologyData(technologyData) {
             },
         },
         dataType:'json',
-        //order: [],
+        stripeClasses: [],
         "order": [[ 0, "desc" ]],
-        dom: 'lBfrtip',
+        dom: "<'top'lBf>rt<'bottom'ip>", //"<'top'Bf>rt<'bottom'ilp>"
+        buttons: [
+            {
+                extend: 'csv',
+                text: 'Download'
+            }
+        ],
         columns: [
             { data: 'species' },
             { data: 'title' },

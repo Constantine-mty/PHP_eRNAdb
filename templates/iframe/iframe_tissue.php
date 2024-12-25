@@ -164,14 +164,13 @@ include "./base_iframe_test.php";
 
     function study_url() {
         // 获取选择的值，这里假设你有一个id为Species的select元素
-        //var species = $("#Spe").val();
-        //var techtype = $("#Tech").val();
-        // 在这里获取其他需要的值，比如NCD，假设有一个id为NCD的select元素
-        var sid = $("#Tissue").val();
+        var species = $("#Spe").val();
+        var techtype = $("#Tech").val();
+        var tissue = $("#Tissue").val();
 
         // 构造URL
-        //var url = '../../detail_study.php?species=' + encodeURIComponent(species) + '&study=' + encodeURIComponent(study) + '&techtype=' + encodeURIComponent(techtype);
-        var url = '../../detail_study.php?sid=' + encodeURIComponent(sid);
+        var url = '../../tissue_result.php?species=' + encodeURIComponent(species) + '&techtype=' + encodeURIComponent(techtype) + '&tissue=' + encodeURIComponent(tissue);
+        //var url = '../../detail_sample.php?sid=' + encodeURIComponent(sid);
         // 跳转到新页面
         parent.location.href = url;
     }
@@ -225,11 +224,11 @@ include "./base_iframe_test.php";
         var tissueSelect = document.getElementById('Tissue');
         console.log("Disease select element:", tissueSelect); // 检查是否正确获取了下拉列表元素
         var exampletissueOption = document.createElement('option');
-        exampletissueOption.text = 'Spleen';
-        exampletissueOption.value = 'Spleen';
+        exampletissueOption.text = 'Blood';
+        exampletissueOption.value = 'Blood';
         tissueSelect.appendChild(exampletissueOption);
         console.log("Disease select innerHTML after adding option:", tissueSelect.innerHTML); // 检查是否正确添加了选项
-        tissueSelect.value = 'Spleen';
+        tissueSelect.value = 'Blood';
         console.log("Disease select value:", tissueSelect.value); // 检查是否正确设置了选中的值
 
 

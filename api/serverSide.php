@@ -6,8 +6,9 @@ require dirname(__DIR__)."{$DS}app{$DS}Db.class.php";
 require dirname(__DIR__)."{$DS}app{$DS}Func.php";
 
 
+
+
 //表单输入
-//$id = $_POST["location"];
 $draw = $_POST['draw']; //绘制计数器。这个是用来确保Ajax从服务器返回的是相对应的（Ajax是异步的，因此返回的顺序是不确定的）
 $row = $_POST['start']; //分页第一条数据的起始位置，比如0代表第一条数据
 $rowperpage = $_POST['length']; // Rows display per page| 表格在当前绘制显示多少条数据。服务器返回的记录将等于该数目，除非服务器返回的记录数较少。

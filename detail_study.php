@@ -217,11 +217,12 @@ include "./templates/header.php";
 
 
 <!--测试接受传参数-->
+<!--
 <div>
     <p style="text-align: center">测试接受传参数</p>
     <p id="project_id" style="text-align: center; color: red" ></p>
 </div>
-
+-->
 
 
 
@@ -241,7 +242,7 @@ include "./templates/header.php";
     let QC_imageURL = `./public/image/${sid}/violin_QC_${sid}.png`;
     let eRNA_imageURL = `./public/image/${sid}/heatmap_top10_eRNA_${sid}.png`;
 
-    document.getElementById("project_id").innerHTML = "当前跳转至" + sid + "页面";
+    //document.getElementById("project_id").innerHTML = "当前跳转至" + sid + "页面";
 </script>
 <!--
 <script>
@@ -393,22 +394,22 @@ include "./templates/header.php";
 
     // 按钮点击事件处理，根据不同按钮切换展示不同图片
     $("#btnA").click(function() {
-        $("#eRNA_Image").attr("src", `./public/image/${sid}/heatmap_top10_eRNA_${sid}.png`);
+        $("#eRNA_Image").attr("src", `./public/figures/heatmap_top10_eRNA_${sid}.png`);
         $("#a-marker").text('Heatmap of the expression of the top 10 marker eRNAs (bottom) for each cluster (left).');
     });
 
     $("#btnB").click(function() {
-        $("#eRNA_Image").attr("src", `./public/image/${sid}/heatmap_top_gene_${sid}.png`);
+        $("#eRNA_Image").attr("src", `./public/figures/heatmap_top_gene_${sid}.png`);
         $("#a-marker").text('Heatmap of the expression of the top 10 marker genes (bottom) for each cluster (left).');
     });
 
     $("#btnC").click(function() {
-        $("#eRNA_Image").attr("src", `./public/image/${sid}/heatmap_eRNA_${sid}.png`);
+        $("#eRNA_Image").attr("src", `./public/figures/heatmap_eRNA_${sid}.png`);
         $("#a-marker").text('Heatmap of the expression of the marker eRNAs (bottom) for each cluster (left).');
     });
 
     $("#btnD").click(function() {
-        $("#eRNA_Image").attr("src", `./public/image/${sid}/heatmap_gene_${sid}.png`);
+        $("#eRNA_Image").attr("src", `./public/figures/heatmap_gene_${sid}.png`);
         $("#a-marker").text('Heatmap of the expression of the marker genes (bottom) for each cluster (left).');
     });
 </script>

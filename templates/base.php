@@ -21,6 +21,9 @@
     <link href="./public/css/filter_table.css" rel="stylesheet">
     <!--<link href="./public/css/selectmenu.css" rel="stylesheet">-->
 
+    <!--<link href="./public/css/table.css" rel="stylesheet">-->
+    <link href="./public/css/specfic_table.css" rel="stylesheet">
+
 
     <!-- JAVASCRIPT -->
     <!-- jquery and popper -->
@@ -30,6 +33,11 @@
     <script src="./bootstrap5/js/jquery.dataTables.min.js"></script>
     <script src="./echarts-5.5.0/dist/echarts.js"></script>
     <!--<script src="./public/js/selectmenu.js"></script>-->
+
+    <script src="../bootstrap5/DataTables/dataTables.buttons.min.js"></script>
+    <script src="../bootstrap5/DataTables/buttons.bootstrap4.min.js"></script>
+    <script src="../bootstrap5/DataTables/buttons.html5.min.js"></script>
+    <script src="../bootstrap5/DataTables/buttons.print.min.js"></script>
 <!--
     <script src="../bootstrap5/DataTables/jquery.dataTables.min.js"></script>
     <script src="../bootstrap5/DataTables/dataTables.bootstrap4.min.js"></script>

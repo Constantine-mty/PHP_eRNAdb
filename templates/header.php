@@ -35,6 +35,10 @@
                 </li>
 
                 <!-- navbar Tools 下拉单 -->
+                <li class="nav-item" style="margin-right: 15px">
+                    <a class="nav-link" href="https://lcbb.swjtu.edu.cn/jbrowse2/" aria-expanded="false">Visualization</a>
+                </li>
+                <!--
                 <li class="nav-item dropdown" style="margin-right: 12px">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">ANALYSIS</a>
                     <ul class="dropdown-menu">
@@ -43,7 +47,7 @@
                         <li><a class="dropdown-item" href="./browse_test.php">Something else here</a></li>
                     </ul>
                 </li>
-
+                -->
                 <!-- navbar Download -->
                 <li class="nav-item" style="margin-right: 12px">
                     <a class="nav-link" href="./download.php" aria-expanded="false">DOWNLOAD</a>
