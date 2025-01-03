@@ -484,7 +484,7 @@ function formatTechnologyData(technologyData) {
             { data: 'title' },
             { data: 'project_id',
                 render: function ( data, type, row ) {
-                    return '<a href="detail_study.php?sid=' + data + '">' + data + '</a>'
+                    return '<a href=' + data + '"detail_study-old.php?sid=">' + data + '</a>'
                 }
             },
             { data: 'tissue' },

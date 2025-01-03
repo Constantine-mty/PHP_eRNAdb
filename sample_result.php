@@ -92,7 +92,7 @@ include "./templates/header.php";
                         '&tissue=' + select_tissue +
                         '&cell=' + select_cell +
                         '&dataset=' + encodeURIComponent(row.dataset) +
-                        '&pos=' + encodeURIComponent(row.pos) +
+                        //'&pos=' + encodeURIComponent(row.pos) +
                         '">' + data + '</a>'
                 }
             },

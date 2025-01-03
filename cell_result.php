@@ -80,12 +80,12 @@ include "./templates/header.php";
             { data: 'Cell' },
             { data: 'Study',
                 render: function ( data, type, row ) {
-                    return '<a href="detail_study.php?sid=' + data + '">' + data + '</a>'
+                    return '<a href=' + data + '"detail_study-old.php?sid=">' + data + '</a>'
                 }
             },
             { data: 'Sample',
                 render: function ( data, type, row ) {
-                    return '<a href="detail_study.php?sid=' + row['Study'] + '">' + data + '</a>'
+                    return '<a href=' + row['Study'] + '"detail_study-old.php?sid=">' + data + '</a>'
                 }
             },
             { data: 'Species',},
