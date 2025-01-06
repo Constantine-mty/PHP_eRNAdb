@@ -8,6 +8,17 @@ include "./templates/base.php";
     include "./templates/header.php";
 ?>
 
+<!--
+<button onclick="enterFullscreen()" style="background: transparent; border: none; cursor: pointer;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <g fill="none" stroke="#0284c7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="m14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></g>
+    </svg>
+</button>
+-->
+
+
 <!--index page分区-->
 <div class="container-fluid" >
     <!-- Columns are 66% vs 33% wide -->
@@ -91,6 +102,62 @@ include "./templates/base.php";
 
 
 
+<script>
+    window.onload = function() {
+        const lastVisit = localStorage.getItem('lastVisit');
+        const currentTime = new Date().getTime();
+
+        // 如果上次访问超过 7 天（604800000 毫秒），则弹出提示框
+        if (!lastVisit || currentTime - lastVisit > 60000) {
+            alert("eRNA scAtlas 建议您使用全屏浏览以获得最佳体验");
+            localStorage.setItem('lastVisit', currentTime);  // 更新访问时间
+        }
+    };
+</script>
+
+<!--
+<script>
+    window.onload = function() {
+        const lastVisit = localStorage.getItem('lastVisit');
+        const currentTime = new Date().getTime();
+
+        // 如果上次访问超过 7 天（604800000 毫秒），则弹出提示框
+        if (!lastVisit || currentTime - lastVisit > 60) {  // 设置为 7 天（604800000 毫秒）
+            // 弹出提示框，不自动全屏
+            alert("eRNA scAtlas 建议您使用全屏浏览以获得最佳体验！" +
+                "点击网页左上角圆形光圈 LOGO可进入全屏");
+            localStorage.setItem('lastVisit', currentTime);  // 更新访问时间
+        }
+    };
+
+    // 进入全屏的函数
+    function enterFullscreen() {
+        const docElm = document.documentElement;  // 获取页面的根元素
+
+        // 检查当前是否已经处于全屏模式
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+            return;  // 如果已经全屏，则不再尝试进入全屏
+        }
+
+        if (docElm.requestFullscreen) {  // 标准浏览器支持的全屏API
+            docElm.requestFullscreen();
+        } else if (docElm.mozRequestFullScreen) {  // Firefox支持的全屏API
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullscreen) {  // Chrome/Opera支持的全屏API
+            docElm.webkitRequestFullscreen();
+        } else if (docElm.msRequestFullscreen) {  // IE/Edge支持的全屏API
+            docElm.msRequestFullscreen();
+        }
+    }
+</script>
+-->
+
+
+
 </body>
 </html>
+
+
+
+
 

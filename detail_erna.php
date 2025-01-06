@@ -64,7 +64,7 @@ include "./templates/header.php";
 ?>
 
 <div class="row">
-    <div class="col-lg-12" style="width: 70%; margin: 0 auto;">
+    <div class="col-lg-12" style="width: 80%; margin: 0 auto;">
 
 
 <div class="row">
@@ -208,7 +208,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-CommonSNP" class="table table-striped table-bordered">
+                    <table id="table-CommonSNP" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">ID</th>
@@ -231,7 +231,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-RiskSNP" class="table table-striped table-bordered">
+                    <table id="table-RiskSNP" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">ID</th>
@@ -254,7 +254,7 @@ include "./templates/header.php";
                         <strong>Crispr-sites on <font color="red" id="note6">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-cas9" class="table table-striped table-bordered">
+                    <table id="table-cas9" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -276,7 +276,7 @@ include "./templates/header.php";
                         <strong>Crispr-sites on <font color="red" id="note6">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-rnainteraction" class="table table-striped table-bordered">
+                    <table id="table-rnainteraction" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">A_Chrom</th>
@@ -301,7 +301,7 @@ include "./templates/header.php";
                         <strong>Crispr-sites on <font color="red" id="note6">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-repeat" class="table table-striped table-bordered">
+                    <table id="table-repeat" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -325,7 +325,7 @@ include "./templates/header.php";
                         <strong>Crispr-sites on <font color="red" id="note6">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-alu" class="table table-striped table-bordered">
+                    <table id="table-alu" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -350,7 +350,7 @@ include "./templates/header.php";
                         <strong>Crispr-sites on <font color="red" id="note6">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-caQTL" class="table table-striped table-bordered">
+                    <table id="table-caQTL" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">SNP</th>
@@ -383,7 +383,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-eQTL" class="table table-striped table-bordered">
+                    <table id="table-eQTL" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">ID</th>
@@ -406,7 +406,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-haQTL" class="table table-striped table-bordered">
+                    <table id="table-haQTL" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">ID</th>
@@ -429,7 +429,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-m5c" class="table table-striped table-bordered">
+                    <table id="table-m5c" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -452,7 +452,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-m6a" class="table table-striped table-bordered">
+                    <table id="table-m6a" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -475,7 +475,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-tfbs" class="table table-striped table-bordered">
+                    <table id="table-tfbs" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>
@@ -499,7 +499,7 @@ include "./templates/header.php";
                         <strong>SNP sites on <font color="red" id="note2">enh1</font></strong>
                     </p>
                     -->
-                    <table id="table-rbp" class="table table-striped table-bordered">
+                    <table id="table-rbp" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <thead>
                         <tr>
                             <th style="text-align:center">Chrom</th>

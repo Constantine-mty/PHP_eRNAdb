@@ -23,7 +23,7 @@ include "./templates/header.php";
                 <!--navajowhite-->
 
                 <!--Dataset-->
-                <table class='fenye table-bordered' id="Dataset_Type_">
+                <table class='fenye table-bordered' id="Dataset_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -42,7 +42,7 @@ include "./templates/header.php";
 
                 <!--SPECIES-->
                 <!--设置id，table-->
-                <table class='fenye table-bordered' style="background-color: white" id="Species_">
+                <table class='fenye table-bordered'  id="Species_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -62,7 +62,7 @@ include "./templates/header.php";
 
 
                 <!--Tissue_TYPE-->
-                <table class='fenye table-bordered' id="Tissue_Type_">
+                <table class='fenye table-bordered' id="Tissue_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -78,7 +78,7 @@ include "./templates/header.php";
 
 
                 <!--Cell_TYPE-->
-                <table class='fenye table-bordered' id="Cell_Type_">
+                <table class='fenye table-bordered' id="Cell_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -93,7 +93,7 @@ include "./templates/header.php";
                 </table>
 
                 <!--PLATFORM-->
-                <table class='fenye table-bordered' id="Platform_">
+                <table class='fenye table-bordered' id="Platform_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -125,7 +125,7 @@ include "./templates/header.php";
             <hr>
             <!--表格开始-->
             <!--改------------------------------>
-            <table id="experiments" class="table table-hover table-striped table-bordered">
+            <table id="experiments" class="table table-hover table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                 <thead>
                 <tr>
                     <th>Dataset ID</th>

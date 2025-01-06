@@ -17,7 +17,7 @@ include "./templates/header.php";
         <div class="col-lg-12">
             <div class="card" id="card_browser_ss" style="margin-top: 20px;margin-bottom: 20px">
                 <!--DataTables pos-->
-                <table id="single_sample" class="display">
+                <table id="single_sample" class="display" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead>
                     <tr>
                         <th>eRNA Region</th>

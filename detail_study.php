@@ -162,32 +162,42 @@ include "./templates/header.php";
 
                 <!--eRNA List-->
                 <div class="card" id="c2" style="margin-bottom:10px">
+                    <div class="row">
+                        <div class="col-lg-12">
                     <!--<div class="table-responsive">-->
                     <div class="datatable-wrapper">
-                        <table id="dataset_erna" class="table table-hover table-bordered">
+                        <table id="dataset_erna" class="table table-hover table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                             <thead>
                             <tr>
                                 <th>eRNA ID</th>
                                 <th>Chrom</th>
                                 <th>Start</th>
                                 <th>End</th>
+                                <th>View</th>
+                                <th>Annotation</th>
                             </tr>
                             </thead>
                         </table>
                     </div>
                     <!--</div>-->
+                        </div>
+                    </div>
                 </div>
 
                 <!--UMAP-->
 
                 <h1>Embedding Scatter Dash in PHP</h1>
+                <div style="text-align: center;">
                 <!--<iframe src="http://localhost:8051?select_value=GSE44618" width="100%" height="600px"></iframe>-->
                 <!-- iframe with dynamic src -->
                 <iframe id="dash-umap" height="600px" width="100%"></iframe>
+                </div>
 
                 <h1>Embedding Violin Dash in PHP</h1>
+                <div style="text-align: center;">
                 <!--<iframe src="http://localhost:8052?select_value=GSE44618" width="100%" height="600px"></iframe>-->
                 <iframe id="dash-violin" height="600px" width="100%"></iframe>
+                </div>
 
                 <!--QC-->
                 <div class="card" style="margin-bottom: 10px">
@@ -255,7 +265,8 @@ include "./templates/header.php";
 <hr>
                 <!--Marker Table-->
                 <div class="row">
-                    <table id="marker_features" class="table table-hover table-striped table-bordered">
+                    <div class="col-lg-12">
+                    <table id="marker_features" class="table table-hover table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                         <!--class="table table-hover table-striped table-bordered"-->
                         <thead>
                         <tr>
@@ -267,6 +278,7 @@ include "./templates/header.php";
                         </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
                 </div>
 
@@ -315,6 +327,7 @@ include "./templates/header.php";
 
     </div>
 </div>
+
 
 
 
@@ -510,7 +523,34 @@ include "./templates/header.php";
             }
         ],
         columns: [
-            { data: 'ID',
+            { data: 'ID'},
+            { data: 'chrom' },
+            { data: 'start',},
+            { data: 'end' },
+            // 新增列显示 logo 并跳转链接
+            {
+                data: null, // 此列不从数据中提取值
+                render: function (data, type, row) {
+                    // 获取与 ID 一样的参数值
+                    let pos = row.chrom && row.start && row.end
+                        ? row.chrom + ':' + (row.start - 500) + '-' + (row.end + 500)
+                        : 'N/A';
+                    let dataset = row.ID; // 假设 ID 即为 dataset
+                    let actualDataset = 'prefix_' + dataset + '_suffix'; // 处理前后缀
+
+                    let logoUrl = './public/image/favicon.ico'; // 这里替换成你自己的 logo 地址
+                    let targetUrl = 'https://lcbb.swjtu.edu.cn/jbrowse2?config=config.json&assembly=GRCh38&loc=' + encodeURIComponent(pos) +
+                        '&tracks=' + encodeURIComponent('sorted_' + sid + '_eRNA.bed') +
+                        ',' + encodeURIComponent('gencode.v46.chr_patch_hapl_scaff.annotation.gff3') +
+                        ',' + encodeURIComponent('dbSnp153Common') +
+                        '&dataset=' + encodeURIComponent(actualDataset);
+
+                    return '<a href="' + targetUrl + '">' +
+                        '<img src="' + logoUrl + '" alt="Logo" style="width: 30px; height: 30px;"/>' + // 这里可以自定义 logo 大小
+                        '</a>';
+                }
+            },
+            { data: 'annotation',
                 render: function ( data, type, row ) {
                     //console.log(row); // 输出 row 对象到控制台
                     let pos = row.chrom && row.start && row.end ? row.chrom + ':' + row.start + '-' + row.end : 'N/A';
@@ -522,9 +562,6 @@ include "./templates/header.php";
                         '">' + data + '</a>'
                 }
             },
-            { data: 'chrom' },
-            { data: 'start',},
-            { data: 'end' },
         ],
     } );
     });
@@ -634,7 +671,11 @@ include "./templates/header.php";
 </script>
 
 <script>
+
     $(document).ready(function () {
+
+        let currentRoute = ''; // 用于存储当前的路由前缀
+
         //const sid = sid; // 替换为实际的 SID 参数
         const table = $('#marker_features').DataTable({
             "processing": true,
@@ -657,7 +698,13 @@ include "./templates/header.php";
                 }
             ],
             columns: [
-                { data: 'names' },
+                {
+                    data: 'names',
+                    render: function (data, type, row) {
+                        // 默认的 render 函数，可以是任意一个初始函数
+                        return `<a href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(data)}" target="_blank">${data}</a>`;
+                    }
+                },
                 { data: 'p_val_adj' },
                 { data: 'p-value' },
                 { data: 'LogFoldChanges' },
@@ -671,30 +718,42 @@ include "./templates/header.php";
                 imgSrc: `./public/figures/heatmap_top_gene_${sid}.png`,
                 description: 'Heatmap of the expression of the top 10 marker genes (bottom) for each cluster (left).',
                 url: './api/get_marker_genes.php', // 数据源
-                //featureType: 'eRNA'
+                //linkTemplate: 'https://www.genenames.org/tools/search/#!/?query=', // 基因链接模板
+                renderFunction: function (data, type, row) {
+                    return `<a href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(data)}" target="_blank">${data}</a>`;
+                },
             },
             btnB: {
                 imgSrc: `./public/figures/heatmap_top10_eRNA_${sid}.png`,
                 description: 'Heatmap of the expression of the top 10 eRNAs (bottom) for each cluster (left).',
                 url: './api/get_marker_features.php', // 数据源
-                //featureType: 'gene'
+                renderFunction: function (data, type, row) {
+                    return `<a href="detail_erna.php?pos=${encodeURIComponent(data)}&spe=${species}&tech=${tech}&tissue=${tissue}&cell=${cell}&dataset=${encodeURIComponent(row.dataset)}" target="_blank">${data}</a>`;
+                }
             },
             btnC: {
                 imgSrc: `./public/figures/heatmap_gene_${sid}.png`,
                 description: 'Heatmap of the expression of the marker genes (bottom) for each cluster (left).',
                 url: './api/get_marker_genes.php', // 数据源
-                //featureType: 'protein'
+                //linkTemplate: 'https://www.genenames.org/tools/search/#!/?query=' // 基因链接模板
+                renderFunction: function (data, type, row) {
+                    return `<a href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(data)}" target="_blank">${data}</a>`;
+                }
             },
             btnD: {
                 imgSrc: `./public/figures/heatmap_eRNA_${sid}.png`,
                 description: 'Heatmap of the expression of the marker eRNAs (bottom) for each cluster (left).',
                 url: './api/get_marker_features.php', // 数据源
-                //featureType: 'miRNA'
+                renderFunction: function (data, type, row) {
+                    return `<a href="detail_erna.php?pos=${encodeURIComponent(data)}&spe=${species}&tech=${tech}&tissue=${tissue}&cell=${cell}&dataset=${encodeURIComponent(row.dataset)}" target="_blank">${data}</a>`;
+                }
             }
         };
 
         //let currentFeatureType = 'eRNA'; // 默认类型
         //let currentUrl = './api/get_marker_features.php'; // 默认数据源
+
+        //let currentLinkTemplate = ''; // 用于存储当前的链接模板
 
         // 按钮点击事件
         $('button').click(function () {
@@ -719,6 +778,14 @@ include "./templates/header.php";
                 // 使用新的数据源刷新表格
                 //table.ajax.url(currentUrl).load();
                 //table.ajax.url(config.url).load();
+
+                // 根据按钮配置切换路由前缀
+                //currentRoute = buttonId === 'btnA' || buttonId === 'btnC' ? 'gene' : 'erna';
+                // 设置当前的链接模板
+                //currentLinkTemplate = config.linkTemplate;
+
+                // 动态设置列的 render 函数
+                table.column(0).data().render = config.renderFunction;
 
                 // 切换表格数据源
                 table.ajax.url(config.url).load(function () {

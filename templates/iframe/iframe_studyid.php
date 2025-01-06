@@ -242,11 +242,11 @@ include "./base_iframe_test.php";
                     var studySelect = document.getElementById('Study');
                     console.log("Disease select element:", studySelect); // 检查是否正确获取了下拉列表元素
                     var examplestudyOption = document.createElement('option');
-                    examplestudyOption.text = 'GSE113046';
-                    examplestudyOption.value = 'GSE113046';
+                    examplestudyOption.text = 'GSE73727';
+                    examplestudyOption.value = 'GSE73727';
                     studySelect.appendChild(examplestudyOption);
                     console.log("Disease select innerHTML after adding option:", studySelect.innerHTML); // 检查是否正确添加了选项
-                    studySelect.value = 'GSE113046';
+                    studySelect.value = 'GSE73727';
                     console.log("Disease select value:", studySelect.value); // 检查是否正确设置了选中的值
 
 

@@ -44,7 +44,7 @@ include "./templates/header.php";
 
                 <!--SPECIES-->
                 <!--设置id，table-->
-                <table class='fenye table-bordered' style="background-color: white" id="Species_">
+                <table class='fenye table-bordered' id="Species_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -65,7 +65,7 @@ include "./templates/header.php";
 
 
                 <!--PLATFORM-->
-                <table class='fenye table-bordered' id="Platform_">
+                <table class='fenye table-bordered' id="Platform_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -84,7 +84,7 @@ include "./templates/header.php";
 
 
                 <!--DATA_TYPE-->
-                <table class='fenye table-bordered' id="Tissue_Type_">
+                <table class='fenye table-bordered' id="Tissue_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
@@ -111,7 +111,7 @@ include "./templates/header.php";
             <hr>
             <!--表格开始-->
             <!--改------------------------------>
-            <table id="experiments" class="table table-hover table-striped table-bordered">
+            <table id="experiments" class="table table-hover table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                 <thead>
                 <tr>
                     <th>Species</th>

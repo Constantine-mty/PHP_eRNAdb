@@ -20,7 +20,7 @@ $select_tissue = 'lymphoma cell';
 $select_cell = 'DG-75 cell';
 $select_chr = 'chr1';
 $select_start = '1300000';
-$select_end = '24000000';
+$select_end = '34000000';
 
 
 $specie_map = [
