@@ -11,6 +11,7 @@
 
 #table-CommonSNP,
 #table-RiskSNP,
+#table-Gene,
 #table-cas9,
 #table-rnainteraction,
 #table-repeat,
@@ -40,6 +41,7 @@
 
 #table-CommonSNP th,
 #table-RiskSNP th,
+#table-Gene th,
 #table-cas9 th,
 #table-rnainteraction th,
 #table-repeat th,
@@ -64,6 +66,7 @@
 
 #table-CommonSNP td,
 #table-RiskSNP td,
+#table-Gene td,
 #table-cas9 td,
 #table-rnainteraction td,
 #table-repeat td,
@@ -92,6 +95,7 @@
 
 #table-CommonSNP thead th,
 #table-RiskSNP thead th,
+#table-Gene thead th,
 #table-cas9 thead th,
 #table-rnainteraction thead th,
 #table-repeat thead th,
@@ -148,6 +152,7 @@
 
 #table-CommonSNP_wrapper .dataTables_paginate,
 #table-RiskSNP_wrapper .dataTables_paginate,
+#table-Gene_wrapper .dataTables_paginate,
 #table-cas9_wrapper .dataTables_paginate,
 #table-rnainteraction_wrapper .dataTables_paginate,
 #table-repeat_wrapper .dataTables_paginate,
@@ -182,6 +187,7 @@
 
 #table-CommonSNP_wrapper .dataTables_paginate .paginate_button,
 #table-RiskSNP_wrapper .dataTables_paginate .paginate_button,
+#table-Gene_wrapper .dataTables_paginate .paginate_button,
 #table-cas9_wrapper .dataTables_paginate .paginate_button,
 #table-rnainteraction_wrapper .dataTables_paginate .paginate_button,
 #table-repeat_wrapper .dataTables_paginate .paginate_button,
@@ -209,6 +215,7 @@
 
 #table-CommonSNP_wrapper .dataTables_paginate .paginate_button.current,
 #table-RiskSNP_wrapper .dataTables_paginate .paginate_button.current,
+#table-Gene_wrapper .dataTables_paginate .paginate_button.current,
 #table-cas9_wrapper .dataTables_paginate .paginate_button.current,
 #table-rnainteraction_wrapper .dataTables_paginate .paginate_button.current,
 #table-repeat_wrapper .dataTables_paginate .paginate_button.current,
@@ -239,6 +246,7 @@
 
 #table-CommonSNP_wrapper .dataTables_info,
 #table-RiskSNP_wrapper .dataTables_info,
+#table-Gene_wrapper .dataTables_info,
 #table-cas9_wrapper .dataTables_info,
 #table-rnainteraction_wrapper .dataTables_info,
 #table-repeat_wrapper .dataTables_info,
@@ -271,6 +279,7 @@
 
 #table-CommonSNP_wrapper .dataTables_length,
 #table-RiskSNP_wrapper .dataTables_length,
+#table-Gene_wrapper .dataTables_length,
 #table-cas9_wrapper .dataTables_length,
 #table-rnainteraction_wrapper .dataTables_length,
 #table-repeat_wrapper .dataTables_length,
@@ -297,6 +306,7 @@
 
 #table-CommonSNP_wrapper .dt-buttons .buttons-csv,
 #table-RiskSNP_wrapper .dt-buttons .buttons-csv,
+#table-Gene_wrapper .dt-buttons .buttons-csv,
 #table-cas9_wrapper .dt-buttons .buttons-csv,
 #table-rnainteraction_wrapper .dt-buttons .buttons-csv,
 #table-repeat_wrapper .dt-buttons .buttons-csv,
@@ -307,7 +317,8 @@
 #table-m5c_wrapper .dt-buttons .buttons-csv,
 #table-m6a_wrapper .dt-buttons .buttons-csv,
 #table-tfbs_wrapper .dt-buttons .buttons-csv,
-#table-rbp_wrapper .dt-buttons .buttons-csv {
+#table-rbp_wrapper .dt-buttons .buttons-csv
+{
     font-weight: bold;
     font-size: 14px;
     background-color: #286ea7; !important;
@@ -327,6 +338,7 @@
 
 #table-CommonSNP_wrapper .top,
 #table-RiskSNP_wrapper .top,
+#table-Gene_wrapper .top,
 #table-cas9_wrapper .top,
 #table-rnainteraction_wrapper .top,
 #table-repeat_wrapper .top,
@@ -354,6 +366,7 @@
 
 #table-CommonSNP_wrapper .top > :first-child + :nth-child(2) ,
 #table-RiskSNP_wrapper .top > :first-child + :nth-child(2) ,
+#table-Gene_wrapper .top > :first-child + :nth-child(2) ,
 #table-cas9_wrapper .top > :first-child + :nth-child(2) ,
 #table-rnainteraction_wrapper .top > :first-child + :nth-child(2) ,
 #table-repeat_wrapper .top > :first-child + :nth-child(2) ,

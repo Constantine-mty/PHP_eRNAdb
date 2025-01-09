@@ -24,8 +24,8 @@ include "./base_iframe_test.php";
 					    title="Select a species(e.g.'Homo Sapiens')" data-container="body"
 					    data-live-search="true" data-hide-disabled="true" data-actions-box="true"
 					    data-virtual-scroll="false">
-					    <option value="Homo Sapiens">Homo Sapiens</option>
-					    <option value="Mus Musculus">Mus Musculus</option>
+					    <option value="Homo sapiens">Homo sapiens</option>
+					    <option value="Mus musculus">Mus musculus</option>
                         <option value="Gallus gallus">Gallus gallus</option>
                         <option value="Danio rerio">Danio rerio</option>
                         <option value="Caenorhabditis elegans">Caenorhabditis elegans</option>
@@ -215,11 +215,11 @@ include "./base_iframe_test.php";
                     var speciesSelect = document.getElementById('Spe');
                     console.log("Species select element:", speciesSelect); // 检查是否正确获取了下拉列表元素
                     var examplespeciesOption = document.createElement('option');
-                    examplespeciesOption.text = 'Homo Sapiens';
-                    examplespeciesOption.value = 'Homo Sapiens';
+                    examplespeciesOption.text = 'Homo sapiens';
+                    examplespeciesOption.value = 'Homo sapiens';
                     speciesSelect.appendChild(examplespeciesOption);
                     console.log("Disease select innerHTML after adding option:", speciesSelect.innerHTML); // 检查是否正确添加了选项
-                    speciesSelect.value = 'Homo Sapiens';
+                    speciesSelect.value = 'Homo sapiens';
                     console.log("Disease select value:", speciesSelect.value); // 检查是否正确设置了选中的值
 
 
@@ -230,11 +230,11 @@ include "./base_iframe_test.php";
                     var techSelect = document.getElementById('Tech');
                     console.log("Disease select element:", techSelect); // 检查是否正确获取了下拉列表元素
                     var exampletechOption = document.createElement('option');
-                    exampletechOption.text = 'Smart-seq2';
-                    exampletechOption.value = 'Smart-seq2';
+                    exampletechOption.text = 'SMARTer';
+                    exampletechOption.value = 'SMARTer';
                     techSelect.appendChild(exampletechOption);
                     console.log("Disease select innerHTML after adding option:", techSelect.innerHTML); // 检查是否正确添加了选项
-                    techSelect.value = 'Smart-seq2';
+                    techSelect.value = 'SMARTer';
                     console.log("Disease select value:", techSelect.value); // 检查是否正确设置了选中的值
 
                     // 将 Step 3 填充为示例健康/疾病
@@ -242,11 +242,11 @@ include "./base_iframe_test.php";
                     var studySelect = document.getElementById('Study');
                     console.log("Disease select element:", studySelect); // 检查是否正确获取了下拉列表元素
                     var examplestudyOption = document.createElement('option');
-                    examplestudyOption.text = 'GSE73727';
-                    examplestudyOption.value = 'GSE73727';
+                    examplestudyOption.text = 'GSE75140';
+                    examplestudyOption.value = 'GSE75140';
                     studySelect.appendChild(examplestudyOption);
                     console.log("Disease select innerHTML after adding option:", studySelect.innerHTML); // 检查是否正确添加了选项
-                    studySelect.value = 'GSE73727';
+                    studySelect.value = 'GSE75140';
                     console.log("Disease select value:", studySelect.value); // 检查是否正确设置了选中的值
 
 

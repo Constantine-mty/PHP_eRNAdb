@@ -13,11 +13,21 @@
     margin-bottom: 30px;
 }
 
+#Disease_Type__wrapper {
+    margin-bottom: 30px;
+}
+
+#Treatment_Type__wrapper {
+    margin-bottom: 30px;
+}
+
 
 #Dataset_Type__wrapper td,
 #Species__wrapper td,
 #Tissue_Type__wrapper td,
 #Cell_Type__wrapper td,
+#Disease_Type__wrapper td,
+#Treatment_Type__wrapper td,
 #Platform__wrapper td {
     padding: 2px;
 }
@@ -26,6 +36,8 @@
 #Species__wrapper th,
 #Tissue_Type__wrapper th,
 #Cell_Type__wrapper th,
+#Disease_Type__wrapper th,
+#Treatment_Type__wrapper th,
 #Platform__wrapper th {
     background-color: #286ea7; /* 绿色背景 */
     color: white;             /* 白色文字 */
@@ -38,6 +50,8 @@
 #Species__wrapper .list-group-item,
 #Tissue_Type__wrapper .list-group-item,
 #Cell_Type__wrapper .list-group-item,
+#Disease_Type__wrapper .list-group-item,
+#Treatment_Type__wrapper .list-group-item,
 #Platform__wrapper .list-group-item {
     padding: 4px 6px;
 }
@@ -64,6 +78,10 @@ span.badge.badge-default
 #Platform__wrapper .dataTables_paginate .next,
 #Cell_Type__wrapper .dataTables_paginate .previous,
 #Cell_Type__wrapper .dataTables_paginate .next,
+#Disease_Type__wrapper .dataTables_paginate .previous,
+#Disease_Type__wrapper .dataTables_paginate .next,
+#Treatment_Type__wrapper .dataTables_paginate .previous,
+#Treatment_Type__wrapper .dataTables_paginate .next,
 #Tissue_Type__wrapper .dataTables_paginate .previous,
 #Tissue_Type__wrapper .dataTables_paginate .next {
     display: none;
@@ -79,6 +97,8 @@ span.badge.badge-default
 #Platform__wrapper .dataTables_paginate,
 #Cell_Type__wrapper .dataTables_paginate ,
 #Cell_Type__wrapper .dataTables_paginate,
+#Disease_Type__wrapper .dataTables_paginate,
+#Treatment_Type__wrapper .dataTables_paginate,
 #Tissue_Type__wrapper .dataTables_paginate ,
 #Tissue_Type__wrapper .dataTables_paginate {
 
@@ -96,6 +116,8 @@ span.badge.badge-default
 #Species__wrapper .dataTables_paginate .paginate_button,
 #Tissue_Type__wrapper .dataTables_paginate .paginate_button,
 #Cell_Type__wrapper .dataTables_paginate .paginate_button,
+#Disease_Type__wrapper .dataTables_paginate .paginate_button,
+#Treatment_Type__wrapper .dataTables_paginate .paginate_button,
 #Platform__wrapper .dataTables_paginate .paginate_button {
     border: 0.5px solid gray; /* 设置边框样式和颜色 */
     background-color: #FFFFFF; /* 设置背景颜色 */
@@ -106,6 +128,8 @@ span.badge.badge-default
 #Species__wrapper .dataTables_paginate .paginate_button:hover,
 #Tissue_Type__wrapper .dataTables_paginate .paginate_button:hover,
 #Cell_Type__wrapper .dataTables_paginate .paginate_button:hover,
+#Disease_Type__wrapper .dataTables_paginate .paginate_button:hover,
+#Treatment_Type__wrapper .dataTables_paginate .paginate_button:hover,
 #Platform__wrapper .dataTables_paginate .paginate_button:hover {
     border-color: gray; /* 已生效！ 鼠标悬停时的边框颜色 */
     background: #8080804D; /*已生效 8080804D*/
@@ -115,6 +139,8 @@ span.badge.badge-default
 #Species__wrapper .dataTables_paginate .paginate_button.current,
 #Tissue_Type__wrapper .dataTables_paginate .paginate_button.current,
 #Cell_Type__wrapper .dataTables_paginate .paginate_button.current,
+#Disease_Type__wrapper .dataTables_paginate .paginate_button.current,
+#Treatment_Type__wrapper .dataTables_paginate .paginate_button.current,
 #Platform__wrapper .dataTables_paginate .paginate_button.current {
     border: 0.5px solid gray; /* 设置边框样式和颜色 */
     background: #006fb6; /* 设置背景颜色 #006fb6 */

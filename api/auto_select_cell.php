@@ -36,17 +36,17 @@ if (array_key_exists($select_specie, $specie_map)) {
 // 根据物种映射，构造查询条件
 //$species_to_query = $specie_map[$select_specie];
 $map[] = ['Species', '=', $select_specie];
-$map[] = ['Seq', '=', $select_experiment];
+$map[] = ['Technology', '=', $select_experiment];
 
-$result = Db::table('sample_detail')->where($map)
-    ->field('Cell')->select();
+$result = Db::table('OverallSample')->where($map)
+    ->field('CellType')->select();
 
 
 // 从查询结果中提取 project_id 值
 
 $tissue_ids = [];
 foreach ($result as $row) {
-    $tissue_ids[] = $row['Cell'];  // 假设您的字段名是 project_id
+    $tissue_ids[] = $row['CellType'];  // 假设您的字段名是 project_id
 }
 
 // 去重处理

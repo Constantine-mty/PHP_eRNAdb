@@ -28,56 +28,56 @@ $map = [];
 
 // 判断并添加物种的查询条件
 if (!empty($select_specie)) {
-    $map[] = ['species', '=', $select_specie];
+    $map[] = ['Species', '=', $select_specie];
 }
 
 // 判断并添加实验和组织的查询条件
 if (!empty($select_experiment)) {
-    $map[] = ['technology', '=', $select_experiment];
+    $map[] = ['Technology', '=', $select_experiment];
 }
 
 if (!empty($select_tissue)) {
-    $map[] = ['tissue', '=', $select_tissue];
+    $map[] = ['Tissue', '=', $select_tissue];
 }
 
 // 构建查询
 //$data = Db::name('your_table_name')->where($map)->select();
 
 //$totalRecords 总条目的数量计数
-$totalRecords = Db::table('publish')->where($map)->count();
+$totalRecords = Db::table('OverallSummary')->where($map)->count();
 
 
 //$totalRecordwithFilter 符合筛选条件的条目的数量统计
-    $totalRecordwithFilter = Db::table('publish')->where($map)->
+    $totalRecordwithFilter = Db::table('OverallSummary')->where($map)->
 
 
 //调用闭包函数query并且允许使用外部变量searchQuery
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
-            ["species", "like", $searchQuery],
+            ["Species", "like", $searchQuery],
             //["title", "like", $searchQuery],
-            ["project_id", "like", $searchQuery],
-            ["tissue", "like", $searchQuery],
-            ["technology", "like", $searchQuery],
+            ["Accessions", "like", $searchQuery],
+            ["Tissue", "like", $searchQuery],
+            ["Technology", "like", $searchQuery],
         ]);
     })->
-    field('species, title, project_id, tissue, technology')->count();
+    field('Species, Reference, Accessions, Tissue, Technology')->count();
 
 
 
-    $result = Db::table('publish')->where($map)->
+    $result = Db::table('OverallSummary')->where($map)->
 
 //调用闭包函数query并且允许使用外部变量searchQuery
     where(function ($query) use ($searchQuery) {
         $query->whereOr([
-            ["species", "like", $searchQuery],
+            ["Species", "like", $searchQuery],
             //["title", "like", $searchQuery],
-            ["project_id", "like", $searchQuery],
-            ["tissue", "like", $searchQuery],
-            ["technology", "like", $searchQuery],
+            ["Accessions", "like", $searchQuery],
+            ["Tissue", "like", $searchQuery],
+            ["Technology", "like", $searchQuery],
         ]);
     })->
-    field('species, title, project_id, tissue, technology')->
+    field('Species, Reference, Accessions, Tissue, Technology')->
     order($columnName . ' ' . $columnSortOrder)->
     limit($row, $rowperpage)->select();
 

@@ -9,6 +9,8 @@ $select_dataset = $_POST['select_dataset'];
 $select_specie = $_POST['select_specie'];
 $select_tissue = $_POST['select_tissue'];
 $select_cell = $_POST['select_cell'];
+$select_disease = $_POST['select_disease'];
+$select_treatment = $_POST['select_treatment'];
 $select_experiment = $_POST['select_experiment'];
 
 
@@ -16,7 +18,7 @@ $select_experiment = $_POST['select_experiment'];
 $map = [];
 
 if (!empty($select_dataset)) {
-    $map[] = ['Study', '=', $select_dataset];
+    $map[] = ['DatasetID', '=', $select_dataset];
 }
 
 // 判断并添加物种的查询条件
@@ -26,7 +28,7 @@ if (!empty($select_specie)) {
 
 // 判断并添加实验和组织的查询条件
 if (!empty($select_experiment)) {
-    $map[] = ['Seq', '=', $select_experiment];
+    $map[] = ['Technology', '=', $select_experiment];
 }
 
 if (!empty($select_tissue)) {
@@ -34,14 +36,22 @@ if (!empty($select_tissue)) {
 }
 
 if (!empty($select_cell)) {
-    $map[] = ['Cell', '=', $select_cell];
+    $map[] = ['CellType', '=', $select_cell];
+}
+
+if (!empty($select_disease)) {
+    $map[] = ['Disease', '=', $select_disease];
+}
+
+if (!empty($select_treatment)) {
+    $map[] = ['Treatment', '=', $select_treatment];
 }
 
 
 
 
-$all_result = Db::table('sample_detail')->where($map)->
-field('Study,  Species,  Tissue, Cell,  Seq')->select();
+$all_result = Db::table('OverallSample')->where($map)->
+field('DatasetID,  Species,  Tissue, CellType, Disease, Treatment, Technology')->select();
 
 
 //实现filter的参数传递

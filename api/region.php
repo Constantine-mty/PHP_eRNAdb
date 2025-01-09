@@ -38,18 +38,18 @@ if (array_key_exists($select_specie, $specie_map)) {
 // 根据物种映射，构造查询条件
 //$species_to_query = $specie_map[$select_specie];
 $map[] = ['Species', '=', $select_specie];
-$map[] = ['Seq', '=', $select_experiment];
+$map[] = ['Technology', '=', $select_experiment];
 $map[] = ['Tissue', '=', $select_tissue];
-$map[] = ['Cell', '=', $select_cell];
+$map[] = ['CellType', '=', $select_cell];
 
-$result = Db::table('sample_detail')->where($map)
-    ->field('Study, Sample')->select();
+$result = Db::table('OverallSample')->where($map)
+    ->field('DatasetID, SampleID')->select();
 
 
 // 从查询结果中提取 project 值
 $tech_ids = [];
 foreach ($result as $row) {
-    $tech_ids[] = $row['Study'];  // 假设您的字段名是 project_id
+    $tech_ids[] = $row['DatasetID'];  // 假设您的字段名是 project_id
 }
 // 去重处理
 $unique_tech_ids = array_unique($tech_ids);
@@ -61,7 +61,7 @@ $response = array_values($unique_tech_ids);  // 保证返回的数组索引从 0
 // 从查询结果中提取 sample 值
 $tech2_ids = [];
 foreach ($result as $row) {
-    $tech2_ids[] = $row['Sample'];  // 假设您的字段名是 project_id
+    $tech2_ids[] = $row['SampleID'];  // 假设您的字段名是 project_id
 }
 // 去重处理
 $unique_tech2_ids = array_unique($tech2_ids);
@@ -117,7 +117,7 @@ where(function ($query) use ($searchQuery) {
     $query->whereOr([
         ["pos", "like", $searchQuery],
     ]);
-})->field('pos, chrom, start, end, dataset')->
+})->field('ID, pos, chrom, start, end, dataset')->
 order( $columnName.' '.$columnSortOrder)->
 limit($row,$rowperpage)->select();
 

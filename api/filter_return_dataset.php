@@ -22,21 +22,21 @@ $map = [];
 
 // 判断并添加物种的查询条件
 if (!empty($select_specie)) {
-    $map[] = ['species', '=', $select_specie];
+    $map[] = ['Species', '=', $select_specie];
 }
 
 // 判断并添加实验和组织的查询条件
 if (!empty($select_experiment)) {
-    $map[] = ['technology', '=', $select_experiment];
+    $map[] = ['Technology', '=', $select_experiment];
 }
 
 if (!empty($select_tissue)) {
-    $map[] = ['tissue', '=', $select_tissue];
+    $map[] = ['Tissue', '=', $select_tissue];
 }
 
 
-$all_result = Db::table('publish')->where($map)->
-field('species,  tissue, technology')->select();
+$all_result = Db::table('OverallSummary')->where($map)->
+field('Species,  Tissue, Technology')->select();
 
 /*
 $data = array();

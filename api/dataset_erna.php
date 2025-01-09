@@ -44,9 +44,79 @@ where(function ($query) use ($searchQuery) {
         ["chrom", "like", $searchQuery],
     ]);
 })->
+//field('ID,chrom,start,end,annotation,dataset')->
 order($columnName . ' ' . $columnSortOrder)->
 limit($row, $rowperpage)->select();
 
+
+
+// Step 2: 查询 TargetGene 表
+$targetGeneMap = [
+    //['Name', 'in', $annotations],
+    ['Dataset', '=', $sid],
+];
+
+$targetGenes = Db::table('TargetGene')
+    ->where($targetGeneMap)
+    ->select();
+
+
+// Step 1: 创建一个以`Name`为键的目标基因字典
+$targetGeneDict = [];
+foreach ($targetGenes as $gene) {
+    $key = $gene['Name'] . '_' . $gene['Dataset'];
+    $targetGeneDict[$key] = $gene['Num']; // 假设你要的是Num字段
+}
+
+// Step 2: 合并数据
+foreach ($result as &$item) {
+    // 拼接用于匹配的 key
+    $key = $item['annotation'] . '_' . $item['dataset'];
+
+    // 检查 targetGeneDict 中是否有匹配的 Num
+    $item['Num'] = isset($targetGeneDict[$key]) ? $targetGeneDict[$key] : 0;
+
+    // 添加其他需要的列（例如 Genes 和 result）
+    $item['result'] = 1;  // 固定列，值为 1
+
+    // 如果有匹配的 TargetGene，获取 Genes 列的值
+    $matchingTargetGene = array_filter($targetGenes, function($target) use ($item) {
+        return $target['Dataset'] == $item['dataset'] && $target['Name'] == $item['annotation'];
+    });
+
+    if (!empty($matchingTargetGene)) {
+        $genes = array_values($matchingTargetGene)[0]['Genes'];
+        $item['Genes'] = $genes;
+    } else {
+        $item['Genes'] = null;  // 如果没有匹配到数据
+    }
+}
+
+/*
+foreach ($result as &$item) {
+    // 假设你已经根据 'annotation' 和 'dataset' 匹配了 TargetGene 数据
+    $matchingTargetGene = array_filter($targetGenes, function($target) use ($item) {
+        return $target['Dataset'] == $item['dataset'] && $target['Name'] == $item['annotation'];
+    });
+
+    // 如果找到了匹配的 TargetGene 数据
+    if (!empty($matchingTargetGene)) {
+        // 获取 Genes 列的内容
+        $genes = array_values($matchingTargetGene)[0]['Genes'];
+        // 添加 Genes 列到当前项
+        $item['Genes'] = $genes;
+    } else {
+        // 如果没有匹配的 TargetGene 数据，可以选择设置为空或其他默认值
+        $item['Genes'] = null;
+    }
+
+    // 添加其他需要的列（如 Num）
+    $key = $item['ID'] . '_' . $item['annotation'];  // 或者使用其他字段来匹配
+    $item['Num'] = isset($targetGeneDict[$key]) ? $targetGeneDict[$key] : 0;
+
+    // 添加常量列 'result'，值为 1
+    //$item['result'] = 1;
+}*/
 
 
 //$data

@@ -38,7 +38,7 @@ include "./templates/header.php";
 
     <div class="row flex-xl-nowrap">
         <!--get筛选开始-->
-        <div class="col-lg-3 bd-sidebar">
+        <div class="col-lg-3 bd-sidebar" style="margin-top: 10px">
             <nav class="bd-links" style="background-color: white">
                 <!--navajowhite-->
 
@@ -70,7 +70,7 @@ include "./templates/header.php";
                     <tr>
                         <th>
                             <div class='list-group-item'>
-                                <h4>Platform</h4>
+                                <h4>Technology</h4>
 
                             </div>
                         </th>
@@ -111,7 +111,7 @@ include "./templates/header.php";
             <hr>
             <!--表格开始-->
             <!--改------------------------------>
-            <table id="experiments" class="table table-hover table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
+            <table id="experiments" class="table table-hover table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                 <thead>
                 <tr>
                     <th>Species</th>
@@ -176,9 +176,9 @@ include "./templates/header.php";
 
         // JSON 数据解析
         const filter_data = JSON.parse(response);
-        filter_species = filter_data.species;
-        filter_tissue = filter_data.tissue;
-        filter_technology = filter_data.technology;
+        filter_species = filter_data.Species;
+        filter_tissue = filter_data.Tissue;
+        filter_technology = filter_data.Technology;
 
 
         //调用函数来获取和flter筛选框中相同数据的下拉框HTML拼接输出
@@ -211,7 +211,7 @@ include "./templates/header.php";
     }
     });
 
-            function initDataTable(species,experiment,tissue) {
+            function initDataTable(Species,Technology,Tissue) {
                 // 使用 data 初始化 dataTable
                 //console.log('Initializing DataTable with data:', data);
                 // 在这里初始化您的dataTable，确保在data准备就绪的情况下进行
@@ -224,7 +224,7 @@ include "./templates/header.php";
                     "lengthChange": false, //禁止show框
                     //order:[], 这个选项是按照返回的json次序展示行，但是允许点击重新排序
                     "ordering": false, //禁止点击排序
-                    data:species
+                    data:Species
                 } );
 
                 if (select_specie) {
@@ -248,7 +248,7 @@ include "./templates/header.php";
                     //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
                     //order:[],
                     "ordering": false,
-                    data:experiment
+                    data:Technology
                 } );
 
                 if (select_experiment) {
@@ -271,7 +271,7 @@ include "./templates/header.php";
                     //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
                     //order:[],
                     "ordering": false,
-                    data:tissue
+                    data:Tissue
                 } );
 
                 if (select_tissue) {
@@ -304,17 +304,17 @@ function formatSpeciesData(speciesData) {
         var speciesName = "";
         var speciesID = "";
         switch (species) {
-            case 'Mouse':
+            case 'Mus musculus':
                 speciesName = 'Mus musculus';
-                speciesID = 'Mouse';
+                speciesID = 'Mus musculus';
                 break;
-            case 'Human':
+            case 'Homo sapiens':
                 speciesName = 'Homo sapiens';
-                speciesID = 'Human';
+                speciesID = 'Homo sapiens';
                 break;
-            case 'Human/Mouse':
+            case 'Homo sapiens/Mus musculus':
                 speciesName = 'Homo / Mus';
-                speciesID = 'Human/Mouse';
+                speciesID = 'Homo sapiens/Mus musculus';
                 break;
             default:
                 speciesName = species;
@@ -480,16 +480,16 @@ function formatTechnologyData(technologyData) {
             }
         ],
         columns: [
-            { data: 'species' },
-            { data: 'title' },
-            { data: 'project_id',
+            { data: 'Species' },
+            { data: 'Reference' },
+            { data: 'Accessions',
                 render: function ( data, type, row ) {
                     //return '<a href='+ data  + 'detail_study.php?sid=>' + data + '</a>'
                     return '<a href="detail_study.php?sid=' + data + '">' + data + '</a>';
                 }
             },
-            { data: 'tissue' },
-            { data: 'technology' }
+            { data: 'Tissue' },
+            { data: 'Technology' }
         ]
     } );
 </script>

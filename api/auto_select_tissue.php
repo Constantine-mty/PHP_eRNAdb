@@ -36,9 +36,9 @@ if (array_key_exists($select_specie, $specie_map)) {
 // 根据物种映射，构造查询条件
 //$species_to_query = $specie_map[$select_specie];
 $map[] = ['Species', '=', $select_specie];
-$map[] = ['Seq', '=', $select_experiment];
+$map[] = ['Technology', '=', $select_experiment];
 
-$result = Db::table('sample_detail')->where($map)
+$result = Db::table('OverallSample')->where($map)
     ->field('Tissue')->select();
 
 

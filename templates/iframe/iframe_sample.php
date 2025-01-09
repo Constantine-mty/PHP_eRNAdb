@@ -19,13 +19,13 @@ include "./base_iframe_test.php";
             <form>
                 <div class="form-group">
 
-                    <label for="specie_lncs" class="font-weight-bold" style="font-size: 14px;"><span style="color: red;">Step2</span>: Choose a species</label>
+                    <label for="specie_lncs" class="font-weight-bold" style="font-size: 14px;"><span style="color: red;">Step1</span>: Choose a species</label>
                     <select class="selectpicker form-control" id="Spe"
                             title="Select a species(e.g.'Homo Sapiens')" data-container="body"
                             data-live-search="true" data-hide-disabled="true" data-actions-box="true"
                             data-virtual-scroll="false">
-                        <option value="Homo Sapiens">Homo Sapiens</option>
-                        <option value="Mus Musculus">Mus Musculus</option>
+                        <option value="Homo sapiens">Homo sapiens</option>
+                        <option value="Mus musculus">Mus musculus</option>
                         <option value="Gallus gallus">Gallus gallus</option>
                         <option value="Danio rerio">Danio rerio</option>
                         <option value="Caenorhabditis elegans">Caenorhabditis elegans</option>
@@ -64,7 +64,7 @@ include "./base_iframe_test.php";
 
                     <div class="center-block" id="t4">
                         <!-- Cell List-->
-                        <label  class="font-weight-bold text-justify" style="font-size: 14px;"><span style="color: red;">Step4</span>: Sample</label>
+                        <label  class="font-weight-bold text-justify" style="font-size: 14px;"><span style="color: red;">Step5</span>: Sample</label>
                         <select class="selectpicker form-control" id="Sample"
                                 title="Select Single Sample" data-container="body"
                                 data-live-search="true" data-hide-disabled="true" data-actions-box="true"
@@ -81,8 +81,8 @@ include "./base_iframe_test.php";
 
                     <div style="color:darkgray;">
                         <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>Note:</strong></p>
-                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>1.Step 1: Select the chromosome number the user wishes to search for.</strong></p>
-                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>2.Steps 2 and 3 entail inputting the chromosome region the user wants to search for.</strong></p>
+                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>1.All options must be selected in order.</strong></p>
+                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>2.The module will return eRNAs results that match the criteria.</strong></p>
                     </div>
                 </div>
             </form>
@@ -98,8 +98,10 @@ include "./base_iframe_test.php";
                 <p class="text-dark font-weight-400">1) Species: Select Homo sapiens or Mus musculus.</p>
                 <p class="text-dark font-weight-400">2) Sequencing Technonlogy: Select the Single-cell transcriptome library preparation strategy of interest.</p>
                 <p class="text-dark font-weight-400">3) Tissue Type: Select the tissue of interest.</p>
-                <p class="text-dark font-weight-400">4) Cell Type: Select the cell of interest.</p></div>
-            <p class="text-dark font-weight-400">5) Sample Type: Select the single sample of interest.</p></div>
+                <p class="text-dark font-weight-400">4) Cell Type: Select the cell of interest.</p>
+                <p class="text-dark font-weight-400">5) Sample Type: Select the single sample of interest.</p>
+            </div>
+        </div>
         </div>
 
     </div>
@@ -315,11 +317,11 @@ include "./base_iframe_test.php";
         var speciesSelect = document.getElementById('Spe');
         console.log("Species select element:", speciesSelect); // 检查是否正确获取了下拉列表元素
         var examplespeciesOption = document.createElement('option');
-        examplespeciesOption.text = 'Homo Sapiens';
-        examplespeciesOption.value = 'Homo Sapiens';
+        examplespeciesOption.text = 'Homo sapiens';
+        examplespeciesOption.value = 'Homo sapiens';
         speciesSelect.appendChild(examplespeciesOption);
         console.log("Disease select innerHTML after adding option:", speciesSelect.innerHTML); // 检查是否正确添加了选项
-        speciesSelect.value = 'Homo Sapiens';
+        speciesSelect.value = 'Homo sapiens';
         console.log("Disease select value:", speciesSelect.value); // 检查是否正确设置了选中的值
 
 

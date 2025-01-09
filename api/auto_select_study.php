@@ -17,15 +17,15 @@ $select_experiment = $_POST['select_experiment'];
 //$select_experiment = 'Smart-seq2';
 
 // 物种名称转换数组
-$specie_aliases = [
-    'Homo Sapiens' => 'Human',
-    'Mus Musculus' => 'Mouse'
-];
+//$specie_aliases = [
+//    'Homo Sapiens' => 'Human',
+//    'Mus Musculus' => 'Mouse'
+//];
 
 // 将前端传入的物种名称转换为数据表中的对应名称
 $specie_map = [
-    'Homo Sapiens' => ['Human','Human/Mouse'], // 包含 Human/Mouse 的结果
-    'Mus Musculus' => ['Mouse', 'Human/Mouse'], // 包含 Human/Mouse 的结果
+    'Homo sapiens' => ['Homo sapiens','Mus musculus/Homo sapiens'], // 包含 Human/Mouse 的结果
+    'Mus musculus' => ['Mus musculus', 'Mus musculus/Homo sapiens'], // 包含 Human/Mouse 的结果
     // 其他物种可以根据需要添加
 ];
 
@@ -43,16 +43,16 @@ if (array_key_exists($select_specie, $specie_map)) {
 
 // 根据物种映射，构造查询条件
 //$species_to_query = $specie_map[$select_specie];
-$map[] = ['species', 'IN', $species_to_query];
-$map[] = ['technology', '=', $select_experiment];
+$map[] = ['Species', 'IN', $species_to_query];
+$map[] = ['Technology', '=', $select_experiment];
 
-$result = Db::table('publish')->where($map)->field('project_id')->select();
+$result = Db::table('OverallSummary')->where($map)->field('Accessions')->select();
 
 
 // 从查询结果中提取 project_id 值
 $project_ids = [];
 foreach ($result as $row) {
-    $project_ids[] = $row['project_id'];  // 假设您的字段名是 project_id
+    $project_ids[] = $row['Accessions'];  // 假设您的字段名是 project_id
 }
 
 // 去重处理

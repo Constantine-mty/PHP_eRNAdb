@@ -18,7 +18,7 @@ include "./templates/header.php";
 
     <div class="row flex-xl-nowrap">
         <!--get筛选开始-->
-        <div class="col-lg-3 bd-sidebar">
+        <div class="col-lg-3 bd-sidebar" style="margin-top: 10px">
             <nav class="bd-links" style="background-color: white">
                 <!--navajowhite-->
 
@@ -92,13 +92,47 @@ include "./templates/header.php";
                     </tbody>
                 </table>
 
+                <!--Disease-->
+                <table class='fenye table-bordered' id="Disease_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
+                    <thead style="background-color: #286ea7">
+                    <tr>
+                        <th>
+                            <div class='list-group-item'>
+                                <h4>Disease</h4>
+
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+                <!--Treatment-->
+                <table class='fenye table-bordered' id="Treatment_Type_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
+                    <thead style="background-color: #286ea7">
+                    <tr>
+                        <th>
+                            <div class='list-group-item'>
+                                <h4>Treatment</h4>
+
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
                 <!--PLATFORM-->
                 <table class='fenye table-bordered' id="Platform_" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                     <thead style="background-color: #286ea7">
                     <tr>
                         <th>
                             <div class='list-group-item'>
-                                <h4>Platform</h4>
+                                <h4>Technology</h4>
 
                             </div>
                         </th>
@@ -114,8 +148,6 @@ include "./templates/header.php";
 
 
 
-
-
         </div>
         <div class="col-lg-9 bd-content" id="bd-content">
             <!--这里将左侧选择过的筛选选项，列在表格上端-->
@@ -125,14 +157,16 @@ include "./templates/header.php";
             <hr>
             <!--表格开始-->
             <!--改------------------------------>
-            <table id="experiments" class="table table-hover table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
+            <table id="experiments" class="table table-hover table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
                 <thead>
                 <tr>
                     <th>Dataset ID</th>
                     <th>Sample ID</th>
                     <th>Species</th>
                     <th>Tissue</th>
+                    <th>Disease</th>
                     <th>Cell type</th>
+                    <th>Treatment</th>
                     <th>Technology</th>
                 </tr>
                 </thead>
@@ -150,6 +184,10 @@ include "./templates/header.php";
         <br><br>
         <div id="cell-dropdown"></div>
         <br><br>
+        <div id="disease-dropdown"></div>
+        <br><br>
+        <div id="treatment-dropdown"></div>
+        <br><br>
         <div id="technology-dropdown"></div>
     </div>
 </div>
@@ -162,7 +200,10 @@ include "./templates/header.php";
     let select_specie = params.get("selectedOption_Species"); // 页面的?属性；
     let select_tissue = params.get("selectedOption_Tissue"); // 页面的?属性；
     let select_cell = params.get("selectedOption_Cell"); // 页面的?属性；
+    let select_disease = params.get("selectedOption_Disease"); // 页面的?属性；
+    let select_treatment = params.get("selectedOption_Treatment"); // 页面的?属性；
     let select_experiment = params.get("selectedOption_Experiment"); // 页面的?属性；
+
     console.log(select_specie);
     console.log(select_experiment);
     console.log(select_tissue);
@@ -179,7 +220,10 @@ include "./templates/header.php";
     var filter_species; // 全局作用域
     var filter_tissue; // 全局作用域
     var filter_cell; // 全局作用域
+    var filter_disease; // 全局作用域
+    var filter_treatment; // 全局作用域
     var filter_technology; // 全局作用域
+
 
     //接受后端返回的json，经过函数处理后，被不同筛选栏的表格调用
     $(document).ready(function() {
@@ -193,6 +237,8 @@ include "./templates/header.php";
                 select_specie: select_specie,
                 select_tissue:select_tissue,
                 select_cell:select_cell,
+                select_disease:select_disease,
+                select_treatment:select_treatment,
                 select_experiment: select_experiment
             },
             success: function(response) {
@@ -201,11 +247,13 @@ include "./templates/header.php";
 
                 // JSON 数据解析
                 const filter_data = JSON.parse(response);
-                filter_dataset = filter_data.Study;
+                filter_dataset = filter_data.DatasetID;
                 filter_species = filter_data.Species;
                 filter_tissue = filter_data.Tissue;
-                filter_cell = filter_data.Cell;
-                filter_technology = filter_data.Seq;
+                filter_cell = filter_data.CellType;
+                filter_disease = filter_data.Disease;
+                filter_treatment = filter_data.Treatment;
+                filter_technology = filter_data.Technology;
 
 
                 //调用函数来获取和flter筛选框中相同数据的下拉框HTML拼接输出
@@ -219,6 +267,8 @@ include "./templates/header.php";
                 console.log('Species:', filter_species);
                 console.log('Tissue:', filter_tissue);
                 console.log('Cell type:', filter_cell);
+                console.log('Disease:', filter_disease);
+                console.log('Treatment:', filter_treatment);
                 console.log('Technology:', filter_technology);
 
 
@@ -227,6 +277,8 @@ include "./templates/header.php";
                 data_Species_ = formatSpeciesData(filter_species);
                 data_Tissue_Type_ = formatTissueData(filter_tissue);
                 data_Cell_Type_ = formatCellData(filter_cell);
+                data_Disease_Type_ = formatDiseaseData(filter_disease);
+                data_Treatment_Type_ = formatTreatmentData(filter_treatment);
                 data_Experiment_Type_ = formatTechnologyData(filter_technology);
 
 
@@ -234,7 +286,7 @@ include "./templates/header.php";
                 //console.log(data_Species_);
 
                 // 在数据准备就绪后，初始化表格(顺序很重要！！！)
-                initDataTable(data_Dataset_Type_,data_Species_,data_Tissue_Type_,data_Cell_Type_,data_Experiment_Type_);
+                initDataTable(data_Dataset_Type_,data_Species_,data_Tissue_Type_,data_Cell_Type_,data_Disease_Type_,data_Treatment_Type_,data_Experiment_Type_);
 
             },
             error: function(xhr, status, error) {
@@ -243,7 +295,7 @@ include "./templates/header.php";
             }
         });
 
-        function initDataTable(dataset,species,tissue,cell,experiment) {
+        function initDataTable(dataset,species,tissue,cell,disease,treatment,experiment) {
             // 使用 data 初始化 dataTable
             //console.log('Initializing DataTable with data:', data);
             // 在这里初始化您的dataTable，确保在data准备就绪的情况下进行
@@ -340,6 +392,52 @@ include "./templates/header.php";
                 }
             }
 
+            $('#Disease_Type_').DataTable( {
+                "processing": true,
+                "paging": true,
+                "pageLength": 6,
+                "info": false,
+                "searching": false,
+                "lengthChange": false,
+                //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
+                //order:[],
+                "ordering": false,
+                data:disease
+            } );
+
+            if (select_disease) {
+                var activeButton_disease = document.getElementById(select_disease);
+                if (activeButton_disease) {
+                    activeButton_disease.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
+                    activeButton_disease.style.color = "#FFFFFF"
+                } else {
+                    console.log('没有找到 ID 为  XXX  的按钮。');
+                }
+            }
+
+            $('#Treatment_Type_').DataTable( {
+                "processing": true,
+                "paging": true,
+                "pageLength": 6,
+                "info": false,
+                "searching": false,
+                "lengthChange": false,
+                //"lengthMenu": [ [3, 5, 10, -1], [3, 5, 10, "All"] ],
+                //order:[],
+                "ordering": false,
+                data:treatment
+            } );
+
+            if (select_treatment) {
+                var activeButton_treatment = document.getElementById(select_treatment);
+                if (activeButton_treatment) {
+                    activeButton_treatment.style.backgroundColor = "#b09b9b"; // 设置激活状态的样式
+                    activeButton_treatment.style.color = "#FFFFFF"
+                } else {
+                    console.log('没有找到 ID 为  XXX  的按钮。');
+                }
+            }
+
             $('#Platform_').DataTable( {
                 "processing": true,
                 "paging": true,
@@ -386,17 +484,13 @@ include "./templates/header.php";
             var speciesName = "";
             var speciesID = "";
             switch (species) {
-                case 'Mouse':
+                case 'Mus musculus':
                     speciesName = 'Mus musculus';
-                    speciesID = 'Mouse';
+                    speciesID = 'Mus musculus';
                     break;
-                case 'Human':
+                case 'Homo sapiens':
                     speciesName = 'Homo sapiens';
-                    speciesID = 'Human';
-                    break;
-                case 'Human/Mouse':
-                    speciesName = 'Homo / Mus';
-                    speciesID = 'Human/Mouse';
+                    speciesID = 'Homo sapiens';
                     break;
                 default:
                     speciesName = species;
@@ -505,6 +599,52 @@ include "./templates/header.php";
         return data_Dataset_;
     }
 
+    //Disease函数，在2.中被调用
+    //DiseaseName & DiseaseID
+    function formatDiseaseData(diseaseData) {
+        var data_Disease_ = [];
+
+        // 处理每个组织的数据
+        Object.keys(diseaseData).forEach(function(disease) {
+            var diseaseCount = diseaseData[disease]; // 组织数量
+
+            // 根据组织生成 HTML 结构
+            var diseaseName = disease
+            var diseaseID = disease
+
+            var diseaseHTML = "<a title='" + diseaseName + "' type='button' class='list-group-item' id='" + diseaseID + "' data-name='" + diseaseName + "' data-type='Disease_Type'>" +
+                "<span class='badge badge-default' style='background-color: #003266'>" + diseaseCount + "</span> " + diseaseName + "</a>";
+
+            // 将 HTML 结构添加到数组中
+            data_Disease_.push([diseaseHTML]);
+        });
+
+        return data_Disease_;
+    }
+
+    //Treatment函数，在2.中被调用
+    //TreatmentName & TreatmentID
+    function formatTreatmentData(treatmentData) {
+        var data_Treatment_ = [];
+
+        // 处理每个组织的数据
+        Object.keys(treatmentData).forEach(function(treatment) {
+            var treatmentCount = treatmentData[treatment]; // 组织数量
+
+            // 根据组织生成 HTML 结构
+            var treatmentName = treatment
+            var treatmentID = treatment
+
+            var treatmentHTML = "<a title='" + treatmentName + "' type='button' class='list-group-item' id='" + treatmentID + "' data-name='" + treatmentName + "' data-type='Treatment_Type'>" +
+                "<span class='badge badge-default' style='background-color: #003266'>" + treatmentCount + "</span> " + treatmentName + "</a>";
+
+            // 将 HTML 结构添加到数组中
+            data_Treatment_.push([treatmentHTML]);
+        });
+
+        return data_Treatment_;
+    }
+
 </script>
 
 
@@ -601,6 +741,50 @@ include "./templates/header.php";
 
     }
 
+    function generateDiseaseDropdown(containerId, diseaseObj) {
+        // 获取要插入下拉框的DOM元素
+        var dropdownContainer = document.getElementById(containerId);
+
+        // 创建 <select> 元素
+        var selectElement = document.createElement('select');
+        selectElement.name = 'disease_filter';
+
+        // 遍历对象的键值对并创建 <option> 元素
+        for (var key in diseaseObj) {
+            if (diseaseObj.hasOwnProperty(key)) {
+                var optionElement = document.createElement('option');
+                optionElement.value = key;
+                optionElement.textContent = key + ' (' + diseaseObj[key] + ')';
+                selectElement.appendChild(optionElement);
+            }
+        }
+        // 将 <select> 元素添加到容器中
+        dropdownContainer.appendChild(selectElement);
+
+    }
+
+    function generateTreatmentDropdown(containerId, treatmentObj) {
+        // 获取要插入下拉框的DOM元素
+        var dropdownContainer = document.getElementById(containerId);
+
+        // 创建 <select> 元素
+        var selectElement = document.createElement('select');
+        selectElement.name = 'treatment_filter';
+
+        // 遍历对象的键值对并创建 <option> 元素
+        for (var key in treatmentObj) {
+            if (treatmentObj.hasOwnProperty(key)) {
+                var optionElement = document.createElement('option');
+                optionElement.value = key;
+                optionElement.textContent = key + ' (' + treatmentObj[key] + ')';
+                selectElement.appendChild(optionElement);
+            }
+        }
+        // 将 <select> 元素添加到容器中
+        dropdownContainer.appendChild(selectElement);
+
+    }
+
     function generateTechnologyDropdown(containerId, techObj) {
         // 获取要插入下拉框的DOM元素
         var dropdownContainer = document.getElementById(containerId);
@@ -640,12 +824,14 @@ include "./templates/header.php";
                 select_specie:select_specie,
                 select_tissue:select_tissue,
                 select_cell:select_cell,
+                select_disease:select_disease,
+                select_treatment:select_treatment,
                 select_experiment:select_experiment,
             },
         },
         dataType:'json',
         //order: [],
-        "order": [[ 0, "desc" ]],
+        "order": [[ 2, "desc" ]],
         dom: "<'top'lBf>rt<'bottom'ip>",
         buttons: [
             {
@@ -653,25 +839,27 @@ include "./templates/header.php";
                 text: 'Download'
             }
         ],
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 50, // 设置默认显示50行
+        lengthMenu: [[10, 25,35, 50, 100], [10, 25,35, 50, 100]],
+        pageLength: 35, // 设置默认显示50行
         columns: [
-            { data: 'Study',
+            { data: 'DatasetID',
                 render: function ( data, type, row ) {
                     //return '<a href=' + data + '"detail_study.php?sid=">' + data + '</a>'
                     return '<a href="detail_study.php?sid=' + data + '">' + data + '</a>';
                 }
             },
-            { data: 'Sample',
+            { data: 'SampleID',
                 render: function ( data, type, row ) {
                     //return '<a href=' + row['Study'] + '"detail_study.php?sid=">' + data + '</a>'
                     return '<a href="detail_study.php?sid=' + row['Study'] + '">' + data + '</a>';
                 }
             },
-            { data: 'Species',},
+            { data: 'Species' },
             { data: 'Tissue' },
-            { data: 'Cell' },
-            { data: 'Seq' }
+            { data: 'Disease' },
+            { data: 'CellType' },
+            { data: 'Treatment' },
+            { data: 'Technology' }
         ]
     } );
 </script>
@@ -846,6 +1034,80 @@ include "./templates/header.php";
 
         document.addEventListener("click", function(event) {
             if (event.target && event.target.getAttribute("data-type") === "Cell_Type") {
+                handleButtonClick(event);
+            }
+        });
+
+    });
+</script>
+
+<!--9. 页面完成加载后，为Disease筛选栏的button赋予路由跳转的功能，激活时搜索条件，取消激活时条件去除-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentPage = window.location.href;
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedOption = urlParams.get('selectedOption_Disease');
+
+        function handleButtonClick(event) {
+            var id = event.target.id;
+            var newUrl = currentPage;
+
+            // ' '-->%20、&-->%26、'+'-->%2B、','-->%2C
+            //（特殊：浏览器会自动解析%20的路由为空格，所以只需要处理取消按钮激活）
+            //g 代表所有符合条件的符号
+            var escapedId = id.replace(/ /g, "%20").replace(/&/g, "%26").replace(/\+/g, "%2B").replace(/,/g, "%2C");
+            var encodedId = encodeURIComponent(id);
+
+            if (id === selectedOption) {
+                // 取消激活时移除选中参数
+                //newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Tissue=' + id + '(&?)'), '$1').replace(/&$/, '');
+                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Disease=' + escapedId + '(&?)'), '$1').replace(/&$/, '');
+            } else {
+                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Disease=' + encodedId;
+            }
+
+            window.location.href = newUrl;
+        }
+
+
+        document.addEventListener("click", function(event) {
+            if (event.target && event.target.getAttribute("data-type") === "Disease_Type") {
+                handleButtonClick(event);
+            }
+        });
+
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentPage = window.location.href;
+        var urlParams = new URLSearchParams(window.location.search);
+        var selectedOption = urlParams.get('selectedOption_Treatment');
+
+        function handleButtonClick(event) {
+            var id = event.target.id;
+            var newUrl = currentPage;
+
+            // ' '-->%20、&-->%26、'+'-->%2B、','-->%2C
+            //（特殊：浏览器会自动解析%20的路由为空格，所以只需要处理取消按钮激活）
+            //g 代表所有符合条件的符号
+            var escapedId = id.replace(/ /g, "%20").replace(/&/g, "%26").replace(/\+/g, "%2B").replace(/,/g, "%2C");
+            var encodedId = encodeURIComponent(id);
+
+            if (id === selectedOption) {
+                // 取消激活时移除选中参数
+                //newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Tissue=' + id + '(&?)'), '$1').replace(/&$/, '');
+                newUrl = newUrl.replace(new RegExp('([?&])selectedOption_Treatment=' + escapedId + '(&?)'), '$1').replace(/&$/, '');
+            } else {
+                newUrl += (currentPage.indexOf('?') !== -1 ? '&' : '?') + 'selectedOption_Treatment=' + encodedId;
+            }
+
+            window.location.href = newUrl;
+        }
+
+        document.addEventListener("click", function(event) {
+            if (event.target && event.target.getAttribute("data-type") === "Treatment_Type") {
                 handleButtonClick(event);
             }
         });

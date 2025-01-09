@@ -11,6 +11,8 @@ $select_specie = $_POST['select_specie'];
 $select_experiment = $_POST['select_experiment'];
 $select_tissue = $_POST['select_tissue'];
 $select_cell = $_POST['select_cell'];
+$select_disease = $_POST['select_disease'];
+$select_treatment = $_POST['select_treatment'];
 
 
 
@@ -32,7 +34,7 @@ $map = [];
 
 // 判断并添加物种的查询条件
 if (!empty($select_dataset)) {
-    $map[] = ['Study', '=', $select_dataset];
+    $map[] = ['DatasetID', '=', $select_dataset];
 }
 
 // 判断并添加物种的查询条件
@@ -42,7 +44,7 @@ if (!empty($select_specie)) {
 
 // 判断并添加实验和组织的查询条件
 if (!empty($select_experiment)) {
-    $map[] = ['Seq', '=', $select_experiment];
+    $map[] = ['Technology', '=', $select_experiment];
 }
 
 if (!empty($select_tissue)) {
@@ -50,49 +52,57 @@ if (!empty($select_tissue)) {
 }
 
 if (!empty($select_cell)) {
-    $map[] = ['Cell', '=', $select_cell];
+    $map[] = ['CellType', '=', $select_cell];
+}
+
+if (!empty($select_disease)) {
+    $map[] = ['Disease', '=', $select_disease];
+}
+
+if (!empty($select_treatment)) {
+    $map[] = ['Treatment', '=', $select_treatment];
 }
 
 // 构建查询
 //$data = Db::name('your_table_name')->where($map)->select();
 
 //$totalRecords 总条目的数量计数
-$totalRecords = Db::table('sample_detail')->where($map)->count();
+$totalRecords = Db::table('OverallSample')->where($map)->count();
 
 
 //$totalRecordwithFilter 符合筛选条件的条目的数量统计
-$totalRecordwithFilter = Db::table('sample_detail')->where($map)->
+$totalRecordwithFilter = Db::table('OverallSample')->where($map)->
 
 
 //调用闭包函数query并且允许使用外部变量searchQuery
 where(function ($query) use ($searchQuery) {
     $query->whereOr([
-        ["Study", "like", $searchQuery],
-        ["Sample", "like", $searchQuery],
+        ["DatasetID", "like", $searchQuery],
+        ["SampleID", "like", $searchQuery],
         ["Species", "like", $searchQuery],
         ["Tissue", "like", $searchQuery],
-        ["Cell", "like", $searchQuery],
-        ["Seq", "like", $searchQuery],
+        ["CellType", "like", $searchQuery],
+        ["Technology", "like", $searchQuery],
     ]);
 })->
-field('Study, Species, Sample, Tissue, Cell, Seq')->count();
+field('DatasetID, Species, SampleID, Tissue, CellType, Technology')->count();
 
 
 
-$result = Db::table('sample_detail')->where($map)->
+$result = Db::table('OverallSample')->where($map)->
 
 //调用闭包函数query并且允许使用外部变量searchQuery
 where(function ($query) use ($searchQuery) {
     $query->whereOr([
-        ["Study", "like", $searchQuery],
-        ["Sample", "like", $searchQuery],
+        ["DatasetID", "like", $searchQuery],
+        ["SampleID", "like", $searchQuery],
         ["Species", "like", $searchQuery],
         ["Tissue", "like", $searchQuery],
-        ["Cell", "like", $searchQuery],
-        ["Seq", "like", $searchQuery],
+        ["CellType", "like", $searchQuery],
+        ["Technology", "like", $searchQuery],
     ]);
 })->
-field('Study, Species, Sample, Tissue, Cell, Seq')->
+field('DatasetID, Species, SampleID, Tissue ,Disease, CellType,Treatment, Technology')->
 order($columnName . ' ' . $columnSortOrder)->
 limit($row, $rowperpage)->select();
 

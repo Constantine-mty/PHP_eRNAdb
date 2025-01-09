@@ -16,8 +16,8 @@ include "./base_iframe_test.php";
                                 title="Select a species(e.g.'Homo Sapiens')" data-container="body"
                                 data-live-search="true" data-hide-disabled="true" data-actions-box="true"
                                 data-virtual-scroll="false">
-                            <option value="Homo Sapiens">Homo Sapiens</option>
-                            <option value="Mus Musculus">Mus Musculus</option>
+                            <option value="Homo sapiens">Homo sapiens</option>
+                            <option value="Mus musculus">Mus musculus</option>
                             <!--
                             <option value="Gallus gallus">Gallus gallus</option>
                             <option value="Danio rerio">Danio rerio</option>
@@ -56,8 +56,8 @@ include "./base_iframe_test.php";
                     </div>
                     <div style="color:darkgray;">
                         <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>Note:</strong></p>
-                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>1.Species must be selected.</strong></p>
-                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>2.Step2 and Step3 are advanced search options for refining your search.</strong></p>
+                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>1.All options must be selected in order.</strong></p>
+                        <p class="h5 text-justify font-weight-300 dashed border-primary "><strong><i class="ni ni-tag text-warning"></i>2.2.The module will return sample results that match the criteria.</strong></p>
                     </div>
                 </div>
             </form>
@@ -197,11 +197,11 @@ include "./base_iframe_test.php";
         var speciesSelect = document.getElementById('Spe');
         console.log("Species select element:", speciesSelect); // 检查是否正确获取了下拉列表元素
         var examplespeciesOption = document.createElement('option');
-        examplespeciesOption.text = 'Homo Sapiens';
-        examplespeciesOption.value = 'Homo Sapiens';
+        examplespeciesOption.text = 'Homo sapiens';
+        examplespeciesOption.value = 'Homo sapiens';
         speciesSelect.appendChild(examplespeciesOption);
         console.log("Disease select innerHTML after adding option:", speciesSelect.innerHTML); // 检查是否正确添加了选项
-        speciesSelect.value = 'Homo Sapiens';
+        speciesSelect.value = 'Homo sapiens';
         console.log("Disease select value:", speciesSelect.value); // 检查是否正确设置了选中的值
 
 
@@ -224,11 +224,11 @@ include "./base_iframe_test.php";
         var tissueSelect = document.getElementById('Tissue');
         console.log("Disease select element:", tissueSelect); // 检查是否正确获取了下拉列表元素
         var exampletissueOption = document.createElement('option');
-        exampletissueOption.text = 'Blood';
-        exampletissueOption.value = 'Blood';
+        exampletissueOption.text = 'Pancreas';
+        exampletissueOption.value = 'Pancreas';
         tissueSelect.appendChild(exampletissueOption);
         console.log("Disease select innerHTML after adding option:", tissueSelect.innerHTML); // 检查是否正确添加了选项
-        tissueSelect.value = 'Blood';
+        tissueSelect.value = 'Pancreas';
         console.log("Disease select value:", tissueSelect.value); // 检查是否正确设置了选中的值
 
 

@@ -63,6 +63,17 @@
 
 
 
+#c0 .card-header,
+#c1 .card-header,
+#c2 .card-header,
+#c3 .card-header,
+#c4 .card-header,
+#c5 .card-header,
+#c6 .card-header,
+#c7 .card-header{
+    background-color: rgb(246, 249, 252);
+}
+
 
 
 

@@ -42,13 +42,15 @@ include "./templates/header.php";
             var bHeight = iframe.contentWindow.document.body.scrollHeight;
             var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
             var height = Math.max(bHeight, dHeight);
-            height = Math.min(height, 400); // 设置最大高度限制
+            height = Math.min(height, 420); // 设置最大高度限制
             iframe.height = height;
 // console.log(height);
         }catch (ex){}
     }
     window.setInterval("reinitIfra()", 200);
 </script>
+
+
 
 
 <!-- id=search_study -->
@@ -71,8 +73,20 @@ include "./templates/header.php";
 
 <!-- 4 点击触发下拉栏 -->
 <script>
+    /*
     $(document).ready(function(){
         $('.card-header').click(function(){
+            var $collapse = $(this).next('.collapse');
+            $collapse.collapse('toggle');
+        });
+    });*/
+
+    $(document).ready(function(){
+        $('.card-header').click(function(){
+            // 关闭所有已展开的卡片
+            $('.collapse.show').not($(this).next('.collapse')).collapse('hide');
+
+            // 切换当前点击的卡片
             var $collapse = $(this).next('.collapse');
             $collapse.collapse('toggle');
         });

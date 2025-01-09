@@ -10,15 +10,15 @@ $select_specie = $_POST['select_specie'];
 //$select_specie = 'Homo Sapiens';
 
 // 物种名称转换数组
-$specie_aliases = [
-    'Homo Sapiens' => 'Human',
-    'Mus Musclus' => 'Mouse'
-];
+//$specie_aliases = [
+//    'Homo Sapiens' => 'Human',
+//    'Mus Musclus' => 'Mouse'
+//];
 
 // 将前端传入的物种名称转换为数据表中的对应名称
 $specie_map = [
-    'Homo Sapiens' => ['Human','Human/Mouse'], // 包含 Human/Mouse 的结果
-    'Mus Musculus' => ['Mouse', 'Human/Mouse'], // 包含 Human/Mouse 的结果
+    'Homo sapiens' => ['Homo sapiens','Mus musculus/Homo sapiens'], // 包含 Human/Mouse 的结果
+    'Mus musculus' => ['Mus musculus', 'Mus musculus/Homo sapiens'], // 包含 Human/Mouse 的结果
     // 其他物种可以根据需要添加
 ];
 
@@ -37,17 +37,17 @@ $map = [];
 
 // 根据物种映射，构造查询条件
 //$species_to_query = $specie_map[$select_specie];
-$map[] = ['species', 'IN', $species_to_query];
+$map[] = ['Species', 'IN', $species_to_query];
 
 
 
 
-$result = Db::table('publish')->where($map)->field('technology')->select();
+$result = Db::table('OverallSummary')->where($map)->field('Technology')->select();
 
 // 从查询结果中提取 project_id 值
 $tech_ids = [];
 foreach ($result as $row) {
-    $tech_ids[] = $row['technology'];  // 假设您的字段名是 project_id
+    $tech_ids[] = $row['Technology'];  // 假设您的字段名是 project_id
 }
 
 // 去重处理

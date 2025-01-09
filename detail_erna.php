@@ -72,7 +72,7 @@ include "./templates/header.php";
         <table id="summary" class="display" style="width:100%">
             <thead>
             <tr>
-                <th>Summary</th>
+                <th style="font-size: larger">Summary</th>
                 <th></th>
 
             </tr>
@@ -83,7 +83,6 @@ include "./templates/header.php";
     </div>
 
 </div>
-
 
 
 
@@ -112,6 +111,13 @@ include "./templates/header.php";
                             <abbr style="text-decoration: none;cursor: inherit;border-bottom: none;">Risk SNP</abbr>
                         </a>
                     </li>
+
+                    <li role="presentation" class="nav-item" id="tab_gene">
+                        <a href="#Gene" aria-controls="Gene" role="tab" data-toggle="tab">
+                            <abbr style="text-decoration: none;cursor: inherit;border-bottom: none;">Target Gene</abbr>
+                        </a>
+                    </li>
+
 
                     <li role="presentation" class="nav-item" id="tab_cas9">
                         <a href="#cas9" aria-controls="cas9" role="tab" data-toggle="tab">
@@ -239,6 +245,23 @@ include "./templates/header.php";
                             <th style="text-align:center">Position</th>
                             <th style="text-align:center">Reference Allele</th>
                             <th style="text-align:center">Alternative Allele</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 数据由 DataTable 动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-pane" id="Gene">
+
+                    <table id="table-Gene" class="table table-striped table-bordered" style="width: 100%;max-width: 100%; overflow-x: auto; table-layout: auto;">
+                        <thead>
+                        <tr>
+                            <th style="text-align:center">Gene ID</th>
+                            <th style="text-align:center">Distance to TSS</th>
+                            <th style="text-align:center">Promoter Alu number</th>
+                            <!--<th style="text-align:center">Alu Details</th>-->
                         </tr>
                         </thead>
                         <tbody>
@@ -558,13 +581,21 @@ include "./templates/header.php";
         }
     }
 
+    let targetUrl = 'https://lcbb.swjtu.edu.cn/jbrowse2?config=config.json&assembly=GRCh38&loc=' + encodeURIComponent(select_pos) +
+        '&tracks=' + encodeURIComponent('sorted_' + select_dataset + '_eRNA.bed') +
+        ',' + encodeURIComponent('gencode.v46.chr_patch_hapl_scaff.annotation.gff3') +
+        ',' + encodeURIComponent('dbSnp153Common') +
+        '&dataset=' + encodeURIComponent(select_dataset);
+
+    let datasetUrl = 'detail_study.php?sid=' + encodeURIComponent(select_dataset)
+
     var data = [
-        ["Position", select_pos],
+        ["Position", `<a href="${targetUrl}" target="_blank">${select_pos}</a>`],
         ["Species", select_specie],
         ["Experiment", select_experiment],
         ["Tissue", select_tissue],
         //["Cell", select_cell],
-        ["Dataset", select_dataset],
+        ["Dataset", `<a href="${datasetUrl}" target="_blank">${select_dataset}</a>`],
         ["Length(bp)", length]
     ];
 
@@ -584,98 +615,11 @@ include "./templates/header.php";
 
 
 
-<!--snp-->
-<!--
-<script>
 
+
+<script type="text/javascript" charset="UTF-8">
     $(document).ready(function () {
-        var table = $('#table-SNP').DataTable({
-            processing: true,
-            serverSide: true,
-            serverMethod: 'post',
-            ajax: {
-                url: './api/detail_SNP.php',
-                cache: false,
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    'select_pos' : select_pos
-                },
-                async: true,
-            },
-            dataType:'json',
-            dom: 'lBfrtip',
-            columns: [
-                { data: 'C4',},
-                { data: 'C1' },
-                { data: 'C2' },
-                { data: 'C5' },
-                { data: 'C6' }],
-            drawCallback: function(settings) {
-                // 检查返回的数据
-                var api = this.api();
-                if (api.data().length === 0) {
-                    // 如果没有数据，显示提示消息
-                    $('#no-data-message').show();
-                } else {
-                    // 如果有数据，隐藏提示消息
-                    $('#no-data-message').hide();
-                }
-            }
-        });
-    })
-
-</script>
--->
-
-<!--crispr-->
-<!--
-<script>
-
-    $(document).ready(function () {
-        var table = $('#table-cas9').DataTable({
-            processing: true,
-            serverSide: true,
-            serverMethod: 'post',
-            ajax: {
-                url: './api/detail_cas9.php',
-                cache: false,
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    'select_pos' : select_pos
-                },
-                async: true,
-            },
-            dataType:'json',
-            dom: 'lBfrtip',
-            columns: [
-                { data: 'C1',},
-                { data: 'C2' },
-                { data: 'C3' },
-                { data: 'C4' },
-                ],
-            drawCallback: function(settings) {
-                // 检查返回的数据
-                var api = this.api();
-                if (api.data().length === 0) {
-                    // 如果没有数据，显示提示消息
-                    $('#no-data-message').show();
-                } else {
-                    // 如果有数据，隐藏提示消息
-                    $('#no-data-message').hide();
-                }
-            }
-        });
-    })
-
-</script>
--->
-
-
-<script>
-    $(document).ready(function () {
-        var commonsnpTable, risksnpTable, cas9Table,rnainteractionTable, repeatTable, aluTable, caQTLTable, eQTLTable, haQTLTable, m5cTable, m6aTable, tfbsTable, rbpTable;
+        var commonsnpTable, risksnpTable, geneTable, cas9Table,rnainteractionTable, repeatTable, aluTable, caQTLTable, eQTLTable, haQTLTable, m5cTable, m6aTable, tfbsTable, rbpTable;
 
         // 切换到 SNP 标签时初始化表格
         $('#tab_commonsnp').click(function() {
@@ -727,12 +671,10 @@ include "./templates/header.php";
                 commonsnpTable.ajax.reload();  // 如果已经初始化，则重新加载数据
             }
 
-            //$('#SNP').fadeIn();  // 显示 SNP 表格
-            //$('#cas9').fadeOut();  // 隐藏 cas9 表格
-
 
             $('#CommonSNP').show();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -799,6 +741,7 @@ include "./templates/header.php";
 
             $('#CommonSNP').hide();
             $('#RiskSNP').show();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -811,6 +754,123 @@ include "./templates/header.php";
             $('#tfbs').hide();
             $('#rbp').hide();
         });
+
+        //Gene
+
+        $('#tab_gene').click(function() {
+
+            $('.nav-item').removeClass('active'); // 移除所有选项卡的 active 类
+            $(this).addClass('active'); // 为当前点击的选项卡添加 active 类
+
+            // 如果表格还没有初始化，才进行初始化
+            if (!geneTable) {
+                geneTable = $('#table-Gene').DataTable({
+                    processing: true,
+                    //serverSide: true,
+                    //serverMethod: 'post',
+                    ajax: {
+                        url: './api/detail_Gene.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: function(d) {
+                            d.select_pos = select_pos;  // 传递查询参数
+                            d.select_dataset = select_dataset;
+                        },
+                        //async: true,
+                    },
+                    dom: "<'top'lBf>rt<'bottom'ip>",
+                    buttons: [
+                        {
+                            extend: 'csv',
+                            text: 'Download'
+                        }
+                    ],
+                    columns: [
+                        {
+                            data: 'Name',
+                            render: function (data, type, row) {
+                                // 默认的 render 函数，可以是任意一个初始函数
+                                return `<a href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(data)}" target="_blank">${data}</a>`;
+                            }
+                        },
+                        { data: 'Distance' },
+                        {data: 'AluCount',
+                            render: function(data, type, row) {
+                                return 'Alu element Number: <button class="btn-show-details" data-num="' + data + '">' + data + '</button>';
+                            }},
+                        /*
+                        {
+                            data: null,
+                            render: function(data, type, row) {
+                                return '<button class="btn-show-details">查看详情</button>';
+                            }
+                        }*/
+                    ],
+                    drawCallback: function(settings) {
+                        var api = this.api();
+                        if (api.data().length === 0) {
+                            $('#no-data-message').show();  // 如果没有数据，显示提示消息
+                        } else {
+                            $('#no-data-message').hide();  // 有数据时隐藏提示消息
+                        }
+                    }
+                });
+
+                // 绑定按钮点击事件，显示或隐藏 AluDetails
+                $('#table-Gene tbody').on('click', '.btn-show-details', function() {
+                    var tr = $(this).closest('tr'); // 获取按钮所在的行
+                    var row = geneTable.row(tr); // 获取该行的 DataTable 对象
+                    var data = row.data(); // 获取该行的数据
+
+                    // 创建新行，显示 AluDetails 的详细信息
+                    var detailsHtml = '';
+                    if (data['AluDetails'] && data['AluDetails'].length > 0) {
+                        data['AluDetails'].forEach(function(alu) {
+                            detailsHtml += `<div>Alu type: ${alu.C4}, Position: ${alu.C1}:${alu.C2}-${alu.C3}, Length: ${alu.C5}, Strand: ${alu.C6}</div>`;
+                        });
+                    } else {
+                        detailsHtml = 'No Alu Details available';
+                    }
+
+                    var newRow = $(`<tr class="details-row">
+        <td colspan="3" style="padding-left: 20px; font-weight: bolder;">
+            ${detailsHtml}
+        </td>
+    </tr>`);
+
+                    // 检查新行是否已经存在，如果存在则删除，否则添加
+                    if (tr.next('.details-row').length) {
+                        tr.next('.details-row').remove(); // 删除已有的行
+                    } else {
+                        tr.after(newRow); // 添加新行到当前行下方
+                    }
+                });
+
+            } else {
+                geneTable.ajax.reload();  // 如果已经初始化，则重新加载数据
+            }
+
+            //$('#SNP').fadeIn();  // 显示 SNP 表格
+            //$('#cas9').fadeOut();  // 隐藏 cas9 表格
+
+            $('#CommonSNP').hide();
+            $('#RiskSNP').hide();
+            $('#Gene').show();
+            $('#cas9').hide();
+            $('#rnainteraction').hide();
+            $('#repeat').hide();
+            $('#alu').hide();
+            $('#caQTL').hide();
+            $('#eQTL').hide();
+            $('#haQTL').hide();
+            $('#m5c').hide();
+            $('#m6a').hide();
+            $('#tfbs').hide();
+            $('#rbp').hide();
+        });
+
+
+
 
         // 切换到 Cas9 标签时初始化表格
         $('#tab_cas9').click(function() {
@@ -864,6 +924,7 @@ include "./templates/header.php";
             $('#cas9').show();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
             $('#alu').hide();
@@ -931,6 +992,7 @@ include "./templates/header.php";
             $('#rnainteraction').show();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#repeat').hide();
             $('#alu').hide();
@@ -998,6 +1060,7 @@ include "./templates/header.php";
             $('#repeat').show();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#alu').hide();
@@ -1064,6 +1127,7 @@ include "./templates/header.php";
             $('#alu').show();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1138,6 +1202,7 @@ include "./templates/header.php";
             $('#alu').hide();
             $('#repeat').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#eQTL').hide();
@@ -1201,6 +1266,7 @@ include "./templates/header.php";
             $('#eQTL').show();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1267,6 +1333,7 @@ include "./templates/header.php";
             $('#eQTL').hide();
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1330,6 +1397,7 @@ include "./templates/header.php";
 
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1387,7 +1455,7 @@ include "./templates/header.php";
                     }
                 });
             } else {
-                m6aTable.ajax.reload();  // 如果已经初始化，则重新加载数据
+                m6aTable.ajax.reload();
             }
 
             //$('#cas9').fadeIn();  // 显示 cas9 表格
@@ -1395,6 +1463,7 @@ include "./templates/header.php";
 
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1427,12 +1496,16 @@ include "./templates/header.php";
                             d.select_pos = select_pos;  // 传递查询参数
                         },
                         async: true,
+                        error: function(xhr, status, error) {
+                            console.error("Error loading data:", error);
+                            alert("Failed to load data. Please try again.");
+                        }
                     },
                     dom: "<'top'lBf>rt<'bottom'ip>",
                     buttons: [
                         {
                             extend: 'csv',
-                            text: 'Download'
+                            text: 'Download',
                         }
                     ],
                     columns: [
@@ -1441,25 +1514,21 @@ include "./templates/header.php";
                         { data: 'end' },
                         { data: 'TF' },
                         { data: 'strand' }
-                    ],
-                    drawCallback: function(settings) {
+                    ],drawCallback:function(settings) {
                         var api = this.api();
                         if (api.data().length === 0) {
-                            $('#no-data-message').show();  // 如果没有数据，显示提示消息
-                        } else {
+                            $('#no-data-message').show();} else {
                             $('#no-data-message').hide();  // 有数据时隐藏提示消息
                         }
                     }
                 });
             } else {
-                tfbsTable.ajax.reload();  // 如果已经初始化，则重新加载数据
+                tfbsTable.ajax.reload();
             }
-
-            //$('#cas9').fadeIn();  // 显示 cas9 表格
-            //$('#SNP').fadeOut();  // 隐藏 SNP 表格
 
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();
@@ -1483,37 +1552,25 @@ include "./templates/header.php";
                 rbpTable = $('#table-rbp').DataTable({
                     processing: true,
                     serverSide: true,
-                    serverMethod: 'post',
-                    ajax: {
-                        url: './api/detail_RBP.php',
+                    serverMethod: 'post',ajax: {url: './api/detail_RBP.php',
                         type: 'post',
                         dataType: 'json',
-                        data: function(d) {
-                            d.select_pos = select_pos;  // 传递查询参数
-                        },
                         async: true,
+                        data: function(d) {
+                            d.select_pos = select_pos;
+                        },
                     },
-                    dom: "<'top'lBf>rt<'bottom'ip>",
-                    buttons: [
-                        {
-                            extend: 'csv',
-                            text: 'Download'
-                        }
-                    ],
+                    dom: "<'top'lBf>rt<'bottom'ip>",buttons: [{'extend': 'csv','text': 'Download',}],
                     columns: [
-                        { data: 'C1' },
-                        { data: 'C2' },
+                        { data: 'C1' },{ data:'C2' },
                         { data: 'C3' },
                         { data: 'C4' },
                         { data: 'C5' },
                         { data: 'C6' },
                         { data: 'C7' },
-                        { data: 'C8' },
-                    ],
-                    drawCallback: function(settings) {
+                        { data: 'C8' }],drawCallback: function(settings) {
                         var api = this.api();
-                        if (api.data().length === 0) {
-                            $('#no-data-message').show();  // 如果没有数据，显示提示消息
+                        if (api.data().length === 0) {$('#no-data-message').show();  // 如果没有数据，显示提示消息
                         } else {
                             $('#no-data-message').hide();  // 有数据时隐藏提示消息
                         }
@@ -1528,6 +1585,7 @@ include "./templates/header.php";
 
             $('#CommonSNP').hide();
             $('#RiskSNP').hide();
+            $('#Gene').hide();
             $('#cas9').hide();
             $('#rnainteraction').hide();
             $('#repeat').hide();

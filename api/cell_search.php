@@ -40,8 +40,8 @@ $searchQuery = '%'.$searchValue.'%';
 
 $map = [];
 $map[] = ['Species', '=', $select_specie];
-$map[] = ['Seq', '=', $select_experiment];
-$map[] = ['Cell', '=', $select_cell];
+$map[] = ['Technology', '=', $select_experiment];
+$map[] = ['CellType', '=', $select_cell];
 
 
 
@@ -49,42 +49,42 @@ $map[] = ['Cell', '=', $select_cell];
 //$data = Db::name('your_table_name')->where($map)->select();
 
 //$totalRecords 总条目的数量计数
-$totalRecords = Db::table('sample_detail')->where($map)->count();
+$totalRecords = Db::table('OverallSample')->where($map)->count();
 
 
 //$totalRecordwithFilter 符合筛选条件的条目的数量统计
-$totalRecordwithFilter = Db::table('sample_detail')->where($map)->
+$totalRecordwithFilter = Db::table('OverallSample')->where($map)->
 
 
 //调用闭包函数query并且允许使用外部变量searchQuery
 where(function ($query) use ($searchQuery) {
     $query->whereOr([
-        ["Study", "like", $searchQuery],
-        ["Sample", "like", $searchQuery],
+        ["DatasetID", "like", $searchQuery],
+        ["SampleID", "like", $searchQuery],
         ["Species", "like", $searchQuery],
         ["Tissue", "like", $searchQuery],
-        ["Cell", "like", $searchQuery],
-        ["Seq", "like", $searchQuery],
+        ["CellType", "like", $searchQuery],
+        ["Technology", "like", $searchQuery],
     ]);
 })->
-field('Study, Species, Sample, Tissue, Cell, Seq')->count();
+field('DatasetID, SampleID, Species, Tissue, CellType, Technology')->count();
 
 
 
-$result = Db::table('sample_detail')->where($map)->
+$result = Db::table('OverallSample')->where($map)->
 
 //调用闭包函数query并且允许使用外部变量searchQuery
 where(function ($query) use ($searchQuery) {
     $query->whereOr([
-        ["Study", "like", $searchQuery],
-        ["Sample", "like", $searchQuery],
+        ["DatasetID", "like", $searchQuery],
+        ["SampleID", "like", $searchQuery],
         ["Species", "like", $searchQuery],
         ["Tissue", "like", $searchQuery],
-        ["Cell", "like", $searchQuery],
-        ["Seq", "like", $searchQuery],
+        ["CellType", "like", $searchQuery],
+        ["Technology", "like", $searchQuery],
     ]);
 })->
-field('Study, Species, Sample, Tissue, Cell, Seq')->
+field('DatasetID, SampleID, Species, Tissue, CellType, Technology')->
 order($columnName . ' ' . $columnSortOrder)->
 limit($row, $rowperpage)->select();
 

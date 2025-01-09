@@ -74,7 +74,8 @@ include "./templates/base.php";
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <img src="./public/image/Summary.png" class="img-responsive" alt="Responsive image">
+                        <!--<img src="./public/image/Summary.png" class="img-responsive" alt="Responsive image">-->
+                        <img src="./public/image/modelOrganism.png" class="img-responsive" alt="Responsive image">
                     </div>
                 </div>
             </div>

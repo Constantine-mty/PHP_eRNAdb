@@ -97,7 +97,7 @@ where(function ($query) use ($searchQuery) {
         ["pos", "like", $searchQuery],
     ]);
 })->
-field('pos, chrom, start, end, dataset')->count();
+field('ID, pos, chrom, start, end, dataset')->count();
 
 
 
