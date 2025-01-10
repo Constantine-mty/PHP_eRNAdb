@@ -857,9 +857,47 @@ include "./templates/header.php";
             columns: [
                 {
                     data: 'names',
+                    /*
                     render: function (data, type, row) {
                         // 默认的 render 函数，可以是任意一个初始函数
                         return `<a href="https://www.ncbi.nlm.nih.gov/gene/?term=${encodeURIComponent(data)}" target="_blank">${data}</a>`;
+                    }
+                    */
+                    render: function (data, type, row) {
+                        let href;
+                        console.log(globalSpecies);
+
+                        // 判断物种，选择不同的基础路径
+                        if (globalSpecies === 'Homo sapiens') {
+                            href = 'detail_erna.php';
+                        } else if (globalSpecies === 'Mus musculus') {
+                            href = 'detail_erna_mus.php';
+                        } else {
+                            href = 'detail_organism.php';  // 默认链接
+                        }
+
+                        // 判断 names 的格式，选择跳转目标
+                        if (/^chr[0-9XYM]+:\d+-\d+$/.test(data)) {
+                            // 增强子格式 1: "chrX:XXX-XXX"
+                            href += '?pos=' + encodeURIComponent(row['pos']) +
+                                '&spe=' + encodeURIComponent(globalSpecies) +
+                                '&tech=' + encodeURIComponent(globalTechnology) +
+                                '&tissue=' + encodeURIComponent(globalTissue) +
+                                '&dataset=' + encodeURIComponent(sid);
+                        } else if (/^EH\d{2}E\d+$/.test(data)) {
+                            // 增强子格式 2: "EHXXEXXXXX..."
+                            href += '?pos=' + encodeURIComponent(row['pos']) +
+                                '&spe=' + encodeURIComponent(globalSpecies) +
+                                '&tech=' + encodeURIComponent(globalTechnology) +
+                                '&tissue=' + encodeURIComponent(globalTissue) +
+                                '&dataset=' + encodeURIComponent(sid);
+                        } else {
+                            // 基因格式，默认跳转到 NCBI 基因页面
+                            href = 'https://www.ncbi.nlm.nih.gov/gene/?term=' + encodeURIComponent(data);
+                        }
+
+                        // 返回带链接的 HTML
+                        return `<a href="${href}" target="_blank">${data}</a>`;
                     }
                 },
                 { data: 'p_val_adj' },

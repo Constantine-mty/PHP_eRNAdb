@@ -11,6 +11,20 @@ $select_dataset = $_POST['select_dataset'];
 //$select_pos = 'chr1:10866244-10868263';
 //$select_dataset = 'GSE49321';
 
+
+$map0 = [];
+$map0[] = ['pos', '=', $select_pos];
+$map0[] = ['dataset', '=', $select_dataset];
+
+$select_name = Db::table('ernaList')->where($map0)
+    ->field('annotation')
+//调用闭包函数query并且允许使用外部变量searchQuery
+    ->find();
+
+// 提取 annotation 值
+    $annotation = $select_name['annotation'];
+
+
 // 使用正则表达式解析
 if (preg_match('/^([a-zA-Z0-9]+):(\d+)-(\d+)$/', $select_pos, $matches)) {
     // $matches[1] => 染色体名称 (例如 chr1)
@@ -27,7 +41,7 @@ if (preg_match('/^([a-zA-Z0-9]+):(\d+)-(\d+)$/', $select_pos, $matches)) {
     //echo ('<br>');
 
 $map = [];
-$map[] = ['Name', '=', $select_pos];
+$map[] = ['Name', '=', $annotation];
 $map[] = ['Dataset', '=', $select_dataset];
 
 

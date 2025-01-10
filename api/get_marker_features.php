@@ -52,7 +52,23 @@ $result = Db::table('marker_eRNA')->where([
 })
     ->order($columnName . ' ' . $columnSortOrder)
 ->limit($row, $rowperpage)->select();
-    //->field('names, p_val_adj, p-value, LogFoldChanges, Cluster')
+
+
+// 查询 ernaList 中的 names 和对应的 pos
+$posList = Db::table('ernaList')->where([
+    ['dataset', '=', $sid],
+])->field('annotation, pos')->select();
+
+// 将 posList 转为键值对形式，方便查找
+$posMap = [];
+foreach ($posList as $item) {
+    $posMap[$item['annotation']] = $item['pos'];
+}
+
+// 遍历 $result，添加对应的 pos
+foreach ($result as &$row) {
+    $row['pos'] = $posMap[$row['names']] ?? null;  // 如果找不到，设置为 null
+}
 
 
 //$data
